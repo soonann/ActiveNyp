@@ -1,0 +1,327 @@
+
+.contentDiv{
+height:300px;
+width:100%;
+padding-bottom:20%;
+position:relative;
+top:80px;
+}	
+
+
+.slideshow{
+text-align:center;
+}
+
+.back{
+width:7%;
+position:relative;
+bottom:120px;
+}
+
+.front{
+width:7%;
+position:relative;
+bottom:120px;
+transform: rotate(180deg);
+}
+h1,p{
+color:white;
+}
+
+#contentDetail{
+	width:85%;
+	height:250px;
+	float:left;
+	margin-top:5%;
+}
+
+#information{
+float:right;
+margin-right:3.5%;
+}
+
+#contentDetail1{
+	width:85%;
+	height:250px;
+	float:right;
+}
+
+#information1{
+margin-left:20%;
+}
+
+#image1{
+float:right;
+}
+
+#contentDetail2{
+	width:85%;
+	height:250px;
+	float:left;
+}
+
+#information2{
+float:right;
+margin-right:20%
+}
+
+#contentDetail3{
+width:85%;
+height:250px;
+float:right;
+
+}
+
+#information3{
+margin-left:20%;
+}
+
+#image3{
+float:right;
+}
+
+#contentDetail4{
+	width:85%;
+	height:250px;
+	float:left;
+
+}
+
+#information4{
+float:right;
+margin-right:3.5%;
+}
+
+
+
+footer{
+	
+	width:100%;
+	clear:both;
+	height:100px;
+	background: rgba(0,0,0,0.9);
+	padding-top:50px;
+	
+}
+
+.logo{
+	
+	width:190px;
+	height:190px;
+	margin-top:5px;
+	margin:0 auto;
+	text-align:center;
+	
+	
+}
+
+
+.cartPricing{
+	
+	width:300px;
+	height:100%;
+	display:inline-block;
+	margin:0 auto;
+	vertical-align:middle;
+	
+	
+	
+}
+
+.cartPricing li{
+	
+	display:inline-block;
+	color:white;
+	vertical-align:middle;
+	
+}
+
+
+
+
+
+
+.pricing{
+	
+	background-color:rgba(255,255,255,0.7);
+	width:200px;
+	height:100%;
+	font-size:20px;
+	padding-top:35px; 
+	text-align:center;
+	
+	
+}
+
+.cartIcon{
+	width:40px;
+	height:40px;
+	display:inline-block;
+	background-image:url(../images/cart.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	text-align:center;
+	margin:0 auto;
+	vertical-align:middle;
+	margin-left:15px;
+	cursor:pointer;
+
+	
+}
+
+.profileDownarrow{
+
+	margin-bottom:10px;
+	margin-left:10px;
+	display:inline-block;
+	cursor:pointer;
+
+	
+}
+
+footer{
+	margin-top:100px;
+}
+
+.footerNav{
+	
+	vertical-align:middle;
+	margin:0 auto;
+	text-align:center;
+
+	
+		
+}
+
+.footerNav li a{
+	
+	text-decoration:none;
+	color:white;
+	font-size:19px;
+	
+}
+
+.footerNav li{
+	display:inline-block;
+	padding-left:4px;
+}
+
+.footerNav li.leftBorder{
+
+	border-left:1px solid white;
+	
+}
+
+/*         Login pop up css           */
+#registrationMain{
+	
+	display:none;
+}	
+
+.formTable1 tr td h3 , .formTable2 tr td {
+	
+	text-align:center;
+}
+
+.formTable1{
+	
+}
+
+.formTable2{
+
+}
+.registrationMain{
+z-index:7000;
+height:100vh;
+width:100%;
+background-color:rgba(0,0,0,0.7);
+position:fixed;
+top:0px;
+left:0px;
+
+
+}	
+
+.registrationInner{
+height:480px;
+width:1080px;
+margin:0 auto;
+margin-top: 100px;
+background-color:white;
+border-radius:10px;
+
+}
+
+.formDiv{
+	height:70%;
+	width:100%;
+	display:flex;
+	justify-content:center;
+	
+	
+}
+
+
+
+.closeButton{
+	cursor:pointer;	
+	float:right;
+	margin-top:10px;
+	margin-right:10px;
+}
+
+.right{
+	text-align:right;
+}
+
+
+#register,#clear,#login{width:100px;}
+
+.alert{
+	display:block;width:100%;height:10%;text-align:center;padding:20px;color:red;
+}
+
+.tableDiv1{
+	display:inline-block;height:100%;padding:20px;
+}
+
+
+.tableDiv2{
+	display:inline-block;height:100%;padding:20px;vertical-align:middle;
+		
+}
+
+#contact,#username,#name,#email,#password,#school,#dob,#confirmpassword{
+	
+	width:150px;
+	
+}
+
+   
+
+
+
+@media only screen and (max-width:1200px){
+	
+	
+	
+	
+	#contact,#username,#name,#email,#password,#school,#dob,#confirmpassword{
+	
+	width:150px;
+	
+	
+	}
+	
+	
+	.registrationInner{
+	height:500px;
+	width:700px;
+	}
+		
+	
+	
+	
+	
+}
+

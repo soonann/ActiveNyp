@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheetnew5.css">
+<style>
+
+	
+</style>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+
+<script>
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+
+	function areYouSure(){
+	
+		if(confirm("Are you sure you want to go back? All your data will reset")){
+			window.location.href = "Payment Info.html";
+		}
+		
+	}	
+	function submitInfo(){
+		if( document.getElementById("fullName").value == "" || document.getElementById("address").value == "" || document.getElementById("city").value == "" || 
+		document.getElementById("country").value == "" || document.getElementById("postalCode").value == "" || document.getElementById("phoneNumber").value == ""){
+		alert("Please complete your shipping information");
+		}
+		else{
+		alert("You have done with your payment. Enjoy buying our items again !!!")
+		window.location.href = "activenypshirt.html";
+		}
+	}
+
+	
+</script>
+
+</head>
+
+	<body>
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1265" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+			<div class="header">
+				<button onclick="areYouSure()" class="back"><img src="images/button.png" height="70px" width="70px"></button>
+				<h1>Shipping Info</h1>
+			</div>
+			<hr>
+			
+			<p>Step 2 of 2</p>
+			
+			<form class="shippingDetail">
+
+				<label for="username"> Full Name : <input type="text" id="fullName" /></label>
+				<br>
+				<label for="streetAddress">Street Address : <input type="text" id="address" /></label>
+				
+				<label for="city">City : <input type="text" id="city" /></label>
+				
+				
+				<label for="country">Country : <input type="text" id="country" /></label>
+				
+				
+				<label for="postalCode">PostalCode : <input type="text" id="postalCode" /></label>
+				
+				
+				<label for="phoneNumber">Phone Number : <input type="tel" id="phoneNumber" /></label>
+				
+			
+			</form>
+				<button onclick="submitInfo()" class="submit">Submit</button>
+		</div>
+		
+			
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	
+</html>	
+	
+	

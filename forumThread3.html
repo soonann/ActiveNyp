@@ -1,0 +1,758 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+
+<style>
+
+.colorWhite{
+color:white;
+
+}
+
+.contentDiv{
+width:100%;
+margin:0 auto;
+  
+
+}	
+
+.author,.date{
+font-size:16px;
+display:block;
+
+}	
+		
+	
+.forumTable{
+margin:0 auto;
+width:66.66%;
+}
+
+table.forumTable tr:nth-child(odd){
+background-color:rgba(0,0,0,0.5);
+height:150px;
+color:white;
+}	
+
+table.forumTable tr:nth-child(even){
+background-color:rgba(0,0,0,0.9);
+height:150px;color:white;
+}
+		
+.title{
+text-align:left;
+padding-left:30px;
+background-color:black;
+color:white;
+height:150px;
+}	
+
+.forumContent{
+width:46.66%;
+padding:20px;
+color:white;
+font-size:15px;
+position:relative;
+}
+
+.userProfile{
+width:21.33%;
+}	
+	
+.userProfile,.title{
+
+
+}	
+	
+.textInput{
+padding:20px;
+height:200px;
+margin:0 auto;
+width:100%;
+
+}	
+
+.postButton,.clearButton{
+width:50px;height:30px;margin:0 auto;
+}
+
+.vote{
+width:4.16%;
+}
+
+td.vote ul{
+margin:0 auto;
+text-align:center;
+list-style-type:none;
+}
+
+.likes{
+font-size:15px;
+
+}
+
+.vote img:hover{
+cursor:pointer;
+}
+
+.forumTable tr td{
+
+}
+		
+.textInput{
+padding:20px;
+height:200px;
+margin:0 auto;
+width:100%;
+
+}
+.title a,h1{
+display:inline-block;
+}
+
+.title a h1{
+color:white;
+text-decoration:underline;
+}
+	
+.postKey{
+display:none;
+}	
+
+td.userProfile{
+padding:15px
+}	
+
+td.userProfile div{
+padding:5px; display:inline-block;
+}
+
+.profilepic{
+cursor:pointer;
+
+}
+
+.forumDelete{
+cursor:pointer;
+color:white;
+position:relative;
+left:-20px;
+top:-50px;
+display:none;
+}
+
+	
+
+	
+	
+</style>
+
+
+<script src="javascript/database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+  
+  
+
+
+var classNames = ['forumContent','likes','author','date'];
+var forumTitle = "Baseball CCA";
+var forumSub = "chillarea"
+var scripts = ['childData.post','childData.likes','childData.profile.name','childData.profile.time']; 
+var postnum = 0;
+
+function loadThread(){
+
+	rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/").once("value",function(snapshot){
+	var table = document.getElementById('forumTable');
+	
+	snapshot.forEach(function(childSnapshot){
+		var childData = childSnapshot.val();
+		var key = childSnapshot.key;
+		key = JSON.stringify(key);
+		
+		var row = table.insertRow(1);
+		
+		var nameRef = childData.profile.name;
+		
+		var link;
+		rootRef.child("/info/"+nameRef+"/profilepicture").once("value",function(snapshot){
+			picRef = snapshot.val();
+			console.log(nameRef + " has pix " + picRef);
+		    link = JSON.stringify(picRef);
+			link = link.substring(1,link.length-1);
+			
+			
+			
+		}).then(function(){
+		
+	    var postCut = [];
+		for(var i=0 ; i<4;i++){
+		// child key 
+		
+			
+			postInfo[i] = eval(scripts[i]);
+			var cut = JSON.stringify(postInfo[i]);
+			cut = cut.substring(1,cut.length-1);
+			postCut.push(cut);
+			
+		}	
+			//classNames = ['forumContent','likes','author','date']
+			var color;
+			if (parseInt(postCut[1])<0){
+				color = "red";
+			}
+			else if(parseInt(postCut[1])>5){
+				color= "green"
+			}
+				else{
+					color = "white"
+				}
+		row.setAttribute("id","rowNum"+postnum);
+		row.innerHTML = "<td class='userProfile'><div><img src='" + link + "' onclick = redirect('"+postCut[2]+"') class='profilepic' width='100px' height='100px'/></div><div><ul><li class='author'>" + postCut[2] + "</li><li class='date'>" + postCut[3] + "</li></ul></div></td><td class='forumContent'>" + postCut[0] +" </td><td class='vote'><span class='forumDelete' onclick='deletePost("+postnum+"," +key+ ")'> X </span> <ul><li onclick='upVote("+key+","+postnum+")' ><img src='images/uparrow.png' class='uparrow' width='10px' height='10px'/></li> <li><span style='color:" + color + "' id = 'post"+postnum+"' class='likes' >" + postCut[1] + "</span></li> <li onclick='downVote("+key+","+postnum+")'><img src='images/downarrow.png' class='downarrow' width='10px' height='10px'/></li></td>";	
+		postnum++;
+		
+		
+		})
+	})
+	
+	})	
+setTimeout(AdminOrNot, 2000);
+	
+}
+	
+	function AdminOrNot(){
+	if(position == "admin"){
+	var x = document.getElementsByClassName("forumDelete");
+	
+	for(var i = 0 ; i<x.length; i++){
+	x[i].style.display = "block";
+
+		}
+		}
+	}
+	
+	
+	function deletePost(num,key){
+	
+	if(confirm("Are you sure you want to delete this post ?")){
+		document.getElementById("rowNum"+num).style.display = "none";
+		rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/"+key+"/").set(null);
+	
+		}
+	}
+	function upVote(key,postnum){
+	
+	
+	
+	
+	if (loggedIn != null){
+	
+	
+	
+	
+				var liked;
+				rootRef.child("info/"+loggedIn+"/liked/"+key+"/vote").once("value",function(snapshot){
+				liked = snapshot.val();
+				
+				
+				}).then(function(){
+					
+					if(liked != "up"){
+					
+					
+					rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/"+key+"/likes").once("value",function(snapshot){
+					currentlikes = snapshot.val();
+					}).then(function(){
+					rootRef.child("info/"+loggedIn+"/liked/"+key+"/").update({vote:"up"});
+					currentlikes = parseInt(currentlikes);
+					var newlikes = currentlikes + 1 ;
+					var stringLikes = newlikes.toString();
+					rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/"+key+"/").update({likes:stringLikes});
+					var element = document.getElementById("post"+postnum);
+					
+					if (newlikes<0){
+								element.style.color = "red"
+							}
+							else if(newlikes>5){
+								element.style.color = "green"
+							}
+								else{
+								element.style.color = "white"
+								}
+								
+					element.innerHTML = newlikes;
+					
+					
+				})
+				
+				
+				}
+				
+				
+				})
+				
+				}
+					
+					
+					
+					else{
+					alert("You need to be logged in to like !");
+					}
+					
+		
+		
+		
+		
+		
+	
+	}
+	
+	function downVote(key,postnum){
+		
+		if (loggedIn != null){
+	
+	
+	
+	
+				var liked;
+				rootRef.child("info/"+loggedIn+"/liked/"+key+"/vote").once("value",function(snapshot){
+				liked = snapshot.val();
+				
+				
+				}).then(function(){
+					
+					if(liked != "down"){
+					
+					
+					rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/"+key+"/likes").once("value",function(snapshot){
+					currentlikes = snapshot.val();
+					}).then(function(){
+					rootRef.child("info/"+loggedIn+"/liked/"+key+"/").update({vote:"down"});
+					currentlikes = parseInt(currentlikes);
+					var newlikes = currentlikes - 1 ;
+					var stringLikes = newlikes.toString();
+					rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/"+key+"/").update({likes:stringLikes});
+					var element = document.getElementById("post"+postnum);
+					
+					if (newlikes<0){
+								element.style.color = "red"
+							}
+							else if(newlikes>5){
+								element.style.color = "green"
+							}
+								else{
+								element.style.color = "white"
+								}
+								
+					element.innerHTML = newlikes;
+					
+					
+				})
+				
+				
+				}
+				
+				
+				})
+				
+				}
+					
+					
+					
+					else{
+					alert("You need to be logged in to like !");
+					}
+					
+		
+		
+		
+		
+	
+	}
+
+	
+	
+ function timeNow(){
+
+	var now = new Date();
+	var month=["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
+    var dd = now.getDate();
+    var mm = now.getMonth(); 
+    var yyyy = now.getFullYear();
+	var hr = now.getHours();
+	var min = now.getMinutes();
+	var AmOrPm= "";
+	var date;
+    if(dd<10){
+		dd='0'+dd
+	} 
+	if(hr=>12){
+		AmOrPm="PM"
+	}
+	else{
+		AmOrPm="AM"
+	}
+	
+	if(hr>12){
+		hr-=12;
+	}
+	
+	if(min<10){
+		min='0'+min;
+	}
+		date = month[mm]+' '+dd+' '+yyyy+' '+hr+':'+min+' '+AmOrPm ;
+		return date;
+}
+
+function writeNewPost(){
+ 
+ if (loggedIn != null){ 
+ 
+  var post = document.getElementById('textInput').value;
+  	console.log(post);
+  post = post.replace(/\n/g,"<br/>");
+  
+  var date = timeNow();
+  var newPost = {profile:{name:loggedIn,time:date},post:post,likes:"0"};
+  var newKey = rootRef.push().key;
+  rootRef.child("/forum/"+ forumSub +"/"+forumTitle+"/"+newKey+"/").set(newPost).then(function(){location.href=location.href}) ;
+  }  
+ else{
+	alert("You need to be logged in to post !")
+ 
+ }
+ 
+ 
+ }
+ 
+
+
+
+
+</script>
+
+</head>
+
+	<body onload = "getPrice()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+				
+				
+			
+			<div class="contentDiv">
+		
+			
+					<table id="forumTable" class="forumTable">
+			
+						<tr>
+							
+							<td class="title" colspan="3">
+							<a href="forumMain.html"><h1>Forum</h1></a>
+								<h1>&nbsp;>>&nbsp;</h1>
+							<a href="forumSub.html"><h1>Chill Area</h1></a>
+								<h1>&nbsp;>>&nbsp;</h1>
+							<h1>Baseball CCA</h1>
+							
+							</td>
+							
+						</tr>
+						
+						
+						
+						<tr style="background-color:transparent;">
+						
+							<td colspan="3">
+							<form>
+							<textarea id="textInput" class="textInput" rows="4" cols="5"></textarea>
+							<input type="button"  class="postButton" onclick="writeNewPost()" value="Post"/> <input type="reset" class="postButton" value="Clear"/>
+							</form>
+							</td>
+							
+						</tr>
+			
+					</table>
+
+			
+			
+				
+		
+				
+			
+			
+			
+			
+				
+			
+			
+			
+			
+			<footer>
+		
+				
+			
+				<ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+			
+		</div>
+		
+	<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+		
+			
+	</div>
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	</html>
+	
+	
+	

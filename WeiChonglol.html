@@ -1,0 +1,1333 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/weichongcss.css">
+<style>
+.activitiesContact{
+
+	display:none;
+}
+
+</style>
+
+
+<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script src="javascript/database.js"></script>
+
+
+<script>
+	
+	 // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+  
+  
+  
+function chartLoad(){
+	var chart = new CanvasJS.Chart("chartContainer", {
+		theme: "theme2",//
+		title:{
+			text: "Most preferred choice of events in 2015"              
+		},
+		animationEnabled: true,   // 
+		data: [              
+		{
+			// 
+			type: "column",
+			dataPoints: [
+				{ label: "Running",  y: 10  },
+				{ label: "Climbing", y: 15  },
+				{ label: "Outing", y: 25  },
+				{ label: "Camp",  y: 30  },
+				{ label: "Competition",  y: 28  }
+			]
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+
+<script>
+
+
+  
+function evts(evt, upcoming) {
+    // 
+     var i, tabcontent, tablinks;
+
+    // 
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(upcoming).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+
+function frisbee(){
+document.getElementById('frisbee').style.display = "none";
+document.getElementById('climbing').style.display = "inline-block";
+
+
+
+}
+function cycling(){
+document.getElementById('climbing').style.display = "none";
+document.getElementById('cycling').style.display = "inline-block";
+
+}
+function archery(){
+document.getElementById('cycling').style.display = "none";
+document.getElementById('frisbee').style.display = "inline-block";
+
+}
+
+function appear(){
+
+document.getElementById('alerts').style.display = "block";
+
+}
+
+function loadCounter(){
+
+document.getElementById("result").innerHTML = + localStorage.clickcount;
+}
+
+function clickCounter() {
+    if(typeof(Storage) !== "undefined") {
+	
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)+1;
+        } else {
+            localStorage.clickcount = 1;
+        }
+        document.getElementById("result").innerHTML = + localStorage.clickcount;
+    }
+}
+
+function likeCounter() {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.likecount) {
+            localStorage.likecount = Number(localStorage.likecount)+1;
+        } else {
+            localStorage.likecount = 1;
+        }
+        document.getElementById("result2").innerHTML = + localStorage.likecount;
+    }
+}
+
+function Over(){
+document.getElementById('mainPic').src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/2000px-Bot%C3%B3n_Me_gusta.svg.png";
+}
+
+function Out(){
+document.getElementById('mainPic').src = "http://www.clipartbest.com/cliparts/ncB/Bzy/ncBBzyr5i.jpeg";
+
+
+}
+function Over2(){
+document.getElementById('mainPic').src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Bot%C3%B3n_Me_gusta.svg/2000px-Bot%C3%B3n_Me_gusta.svg.png";
+}
+
+function Out2(){
+document.getElementById('mainPic').src = "http://www.clipartbest.com/cliparts/ncB/Bzy/ncBBzyr5i.jpeg";
+
+
+}
+
+
+
+/* Set the width of the side navigation to 250px and the left margin of the page content to 250px and add a black background color to body */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+	
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0"
+}
+
+
+function opensideNav(){
+document.getElementById('mySidenav').style.width = "18%";
+}
+
+	function getPrice(){
+		var x;
+		x = localStorage.getItem("price");
+		var check = localStorage.getItem("cart");
+		console.log(check);
+		if(check == null){
+			document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+0+"</p>";
+		}
+		else{document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+x+"</p>";}
+	}
+	
+function clearItem(){
+localStorage.removeItem("addressBook");
+}
+
+</script>
+
+</head>
+
+	<body onload="getPrice(),appear(),chartLoad(),loadCounter()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295px" HEIGHT="500">
+    <TR>
+    <TD WIDTH="200px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+			
+			<div id="alerts">
+				<span class="closebtn">&times</span><p id="ccaPoint">Participants who participate events will be given 2 CCA points and 20% discount in purchasing our shop item.JOIN US NOW!!! </p> 
+			</div>
+<script>
+<!--red-->
+var close = document.getElementsByClassName("closebtn");
+var j;
+
+for (j = 0; j < close.length; j++) {
+    close[j].onclick = function(){
+        var div = this.parentElement;
+        div.style.opacity = "0";
+        
+    }
+}
+</script><div class="contentDiv">
+	    <div class="container">
+		
+            <ul class="tab">
+            <li><a href="#" class="tablinks" onclick="evts(event, 'upcomingEvents')">Events and Activities Registration</a></li>
+            <li><a href="#" class="tablinks" onclick="evts(event, 'activities')"><p onclick="opensideNav()">Events</p></a></li>
+            <li><a href="#" class="tablinks" onclick="evts(event, 'outing')">Activities</a></li>
+			<li><a href="#" class="tablinks" onclick="evts(event, 'pastEvents')">Past Events and Activities</a></li>
+            </ul>
+
+            <div id="upcomingEvents" class="tabcontent">
+                <h2>Registration Open!!!</h2>
+				
+				<div id="yingyi">
+<table id="yingyi">
+    <thead>
+        <tr>
+			<th id="event-time" width="150">Date/Time</th>
+			<th id="event-description" width="*">Event</th>
+   	</tr>
+	</thead>
+	
+    <tbody>	
+	
+	
+	<tr>
+			<td>
+                07/09/2016 <br>
+                2 days 1 night
+            </td>
+            <td>
+
+				<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="https://a.dilcdn.com/bl/wp-content/uploads/sites/8/2013/05/campfire01.jpg"></div>
+               
+				<p style="color:orange;"><strong> Camp Endurance </strong></p>
+				<p> Venue: Pulau Ubin
+				<br>Click register below to join us and have fun.</p>
+				<p> Things need to bring </p>
+	            <p>
+				1)Comfortable wear for indoor and outdoor activities<br>
+				2)Water bottle<br>
+				3)NRIC for checking attendance
+				
+				</p>
+				<br>
+				<p id="myBtn"><img src="http://kodewithkids.com/wp-content/uploads/2015/11/Register-button-black.png" width="100px" height="35px"></p>
+				<br>
+				<p id="result"></p>
+				<span id="picture">
+                <img src="images/images7.jpeg" id="mainPic" onclick="clickCounter()" onmouseover="Over()" onmouseout="Out()" width="20px" height="20px" />
+	            </span>
+				</p>
+				<div id="mum">
+		<table border="1px">
+            <thead>
+                <tr>
+                    <th colspan="6">Activities Schedule</th>
+                </tr>
+            </thead>
+            <tbody>
+			    <tr>
+                    <td>2-4pm</td>
+                    <td>Ice Breaker Games(Get to know each other activities)</td>
+                    				
+                </tr>
+                <tr>
+                    <td>4-7pm</td>
+                    <td>Treasure Hunt</td>
+                    				
+                </tr>
+                
+                <tr>
+                    <td>7-8pm</td>
+                    <td>Dinner</td>
+					
+                </tr>
+				<tr>
+                    <td>8-11pm</td>
+                    <td>CampFire</td>
+					
+                </tr>
+				<tr>
+                    <td>11-8am</td>
+                    <td>Sleep/Rest</td>
+					
+                </tr>
+				<tr>
+                    <td>8-9am</td>
+                    <td>Breakfast</td>
+					
+                </tr>
+				<tr>
+                    <td>9-10am</td>
+                    <td>Leadership Activities</td>
+					
+                </tr>
+            </tbody>
+        </table>
+	</div>
+            </td>
+        </tr>
+
+		<tr>
+			<td>
+                21/09/2016 <br>
+                18:00 -22:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://puma-nightrun.com.sg/wp-content/themes/puma2016/images/website.jpg"></div>
+				<p id="father">
+				
+				<p class="PUMA" style="color:orange"><strong> NYP PUMA Run </strong></p>
+				<p> Venue: NYP <br>
+				Bring your friends along to sweat all you can.
+				<br>Click register below to join us and have fun.</p>
+				<p> Things need to bring </p>
+	            <p>
+				1)Any Dry-Fit shirt and shorts<br>
+				2)Water bottle<br>
+				3)NRIC for checking attendance
+				
+				</p>
+				<br>
+				<p id="myBtn"><img src="http://kodewithkids.com/wp-content/uploads/2015/11/Register-button-black.png" width="100px" height="35px"></p>
+				<br>
+				<span id="result2"></span>
+				<span>
+                <img src="images/image8.png" id="mainPic" onclick="likeCounter()" onmouseover="Over2()" onmouseout="Out2()"width="20px" height="20px"/>
+	            </span>
+				
+				
+		<table border="1px">
+            <thead>
+                <tr>
+                    <th colspan="6">Event Schedule</th>
+                </tr>
+            </thead>
+            <tbody>
+			    <tr>
+                    <td>6-7pm</td>
+                    <td>Running bonding games</td>
+                    				
+                </tr>
+                <tr style="background-color:black">
+                    <td>7-9pm</td>
+                    <td>Running for 2.4km,5km,10km</td>
+                    				
+                </tr>
+                
+                <tr>
+                    <td>9-10pm</td>
+                    <td>Prize presentation and snacks for supper</td>
+					
+                </tr>
+				
+            </tbody>
+        </table>
+	
+				</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+</div>
+</div>
+
+            <div id="activities" class="tabcontent">
+			
+					
+		
+		<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#" onclick ="archery()">
+            <span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386237450.png" alt="Shooting">
+            </span>
+            <span>Archery</span>
+        </a>
+
+  <a href="#"onclick="frisbee()"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1406520892.png" alt="Badminton">
+            </span>
+            <span>Badminton</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386237497.png" alt="Basketball">
+            </span>
+            <span>Basketball</span>
+        </a>
+  <a href="#" onclick="cycling()"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386237630.png" alt="Cycling">
+            </span>
+            <span>Cycling</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1399538129.png" alt="Floorball">
+            </span>
+            <span>Floorball</span>
+        </a>
+  <a href="#"><span>
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386642759.png" alt="Ultimate Frisbee">
+                </span>
+                <span>Frisbee</span>
+                </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1398417436.png" alt="Kickboxing">
+            </span>
+            <span>Kickboxing</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386237417.png" alt="Netball">
+            </span>
+            <span>Netball</span>
+        </a>
+  <a href="#"><span>
+                    <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1399537826.png" alt="Rock Climbing">
+                </span>
+                <span>Rock Climbing</span>
+                </a>
+  <a href="#"><span>
+                    <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1393468256.png" alt="Running">
+                </span>
+                <span>Running</span>
+                </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386237775.png" alt="Swimming">
+            </span>
+            <span>Swimming</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386642688.png" alt="Table Tennis">
+            </span>
+            <span>Table Tennis</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1394595935.png" alt="Taekwondo">
+            </span>
+            <span>Taekwondo</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386642539.png" alt="Tennis">
+            </span>
+            <span>Tennis</span>
+        </a>
+  <a href="#"><span class="image">
+                <img src="http://sportsanity.com.sg/upload/icon/25x16/images_1386642642.png" alt="Volleyball">
+            </span>
+            <span>Volleyball</span>
+        </a>
+</div>
+			<!---from here----->
+			
+			<div id="frisbee" class="yingyi">
+			<h2> Upcoming Events</h2>
+			
+				
+				<table>
+    <thead>
+        <tr>
+			<th id="event-time" width="150">Date/Time</th>
+			<th id="event-description" width="*">Event</th>
+   	</tr>
+	</thead>
+	
+    <tbody>	
+		
+		<tr>
+			<td id="timing123">
+                15/10/2016 <br>
+                14:00 -18:00
+            </td>
+            
+            <td>
+            <div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRpE1Jh8w086ynHeyg3piQOMUtUxGwRQGgVeNSWhiSvNDXe41br"></div>
+			<p style="color:orange"><strong>ArcheryShoot</strong></p>
+			<p>
+			It is a trial session for people who would like to try learning it! If u are interested, Registration is open in a later date.</p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+        </tr>
+
+    </tbody>
+</table>
+				
+			
+			</div>
+			
+			
+			
+			
+			
+			
+			<div id="climbing" class="yingyi">
+                <h2> Upcoming Events</h2>
+                
+              <p id="father">
+				
+				<table>
+    <thead>
+        <tr>
+			<th id="event-time" width="150">Date/Time</th>
+			<th id="event-description" width="*">Event</th>
+   	</tr>
+	</thead>
+	
+    <tbody>	
+		
+		<tr>
+			<td id="timing123">
+                22/11/2016 <br>
+                15:00 -19:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://timesofindia.indiatimes.com/thumb/msid-47649674,width-400,resizemode-4/47649674.jpg"></div>
+                      
+				<p style="color:orange"><strong>Badminton Competition</strong></p>
+	            <p>It is open to everyone. You do not need to be in badminton CCA to join.<br> Categories are Year 1, Year 2 and Year 3.				
+	            Registration is at a later date. Will update soon. </p>
+				
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+</p>
+</div>
+
+<div id="cycling" class="yingyi">
+                <h2> Upcoming Events</h2>
+                
+             
+				
+				<table>
+    <thead>
+        <tr>
+			<th id="event-time" width="150">Date/Time</th>
+			<th id="event-description" width="*">Event</th>
+   	</tr>
+	</thead>
+	
+    <tbody>	
+		
+		<tr>
+			<td id="timing123">
+                09/11/2016 <br>
+                16:00 -20:00
+            </td>
+		
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://www.togoparts.com/articles/uploads/featured-article_3939.jpg"></div>
+                      
+				<p style="color:orange"><strong>SportyRide</strong></p>
+				<p>SportyRide is held at East Coast Park.<br> Registration is at a later date. </p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+				</div>
+                
+			
+				</div>
+				
+				
+
+			
+			
+			<div id="outing" class="tabcontent">
+			<div class="yingyi">
+                <h2>Upcoming Activities</h2>	
+				
+                <p id="father">
+				
+				<table>
+    <thead>
+        <tr>
+			<th id="event-time" width="150">Date/Time</th>
+			<th id="event-description" width="*">Event</th>
+   	</tr>
+	</thead>
+	
+    <tbody>	
+	
+	
+	<tr>
+			<td id="timing123">
+                18/09/2016 <br>
+                09:00 -23:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTbqMjumq8hMdXh3sboqmxYthXiXeRcdPFpdMg5go018CaRZyw3"></div>
+                      
+				<p style="color:orange"><strong>Camp Adventure</strong></p>
+	            <p>Camp that will let u bond with friends and learn how to work together.<br> 
+				Registration date would be at a later date. So please visit us soon again to check out our events.</p>
+				
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance.</p>
+            </td>
+        </tr>
+
+		<tr>
+			<td id="timing123">
+                18/10/2016 <br>
+                15:30 -18:30
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQLMpyS1Jp4cHStt-wpwtfrsiDK_D5Cl3CNcfLP9SZhJgIk2BW0"></div>
+                
+				
+				<p style="color:orange"><strong>Cooking Competition</strong></p>
+				<p> You are to form in 4-5 people per group to cook together. Create an international dish to let the judges judge your cooking skills.<br> Registration date will be at a later date.</p>
+				
+				<p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+		
+		
+
+    </tbody>
+</table>
+				
+				</p>
+				
+				
+	            </div>
+            </div>
+			<div id="pastEvents" class="tabcontent">
+			<div id="yingyi">
+			<p id="father">
+			<h2>Past Events and Activities</h2>
+
+			<table>
+    <thead>
+        <tr>
+			<th id="event-time" width="150">Date/Time</th>
+			<th id="event-description" width="*">Event</th>
+   	</tr>
+	</thead>
+	
+    <tbody>	
+	
+	
+	    <tr>
+			<td id="timing123">
+                20/07/2016 <br>
+                14:00 -19:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://sg.asia-city.com/sites/default/files/imagecache/item_image/onsight_climbing_0.jpg"></div>
+                <p style="color:orange"><strong>ClimbFun</strong></p>      
+				<p>Venue at Onsight Climbing Gym.</p>
+	            <p>ClimbFun is organised by NYP students. It can train your strength and your determination of every climb you have attempt.
+	            So come join us.
+				
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+		
+		<tr>
+			<td id="timing123">
+                10/07/2016 <br>
+                09:00 -22:30
+            </td>
+            <td>
+
+				<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://www.mtt-events.com/tl_files/media_files/images/level_1_images/team-building-exercises.jpg"></div>
+                
+				<p style="color:orange"><strong> Camp Achievers </strong></p>
+				<p> Come and join us to play and have fun. To achieve any impossible games plan by our NYP students.</p>
+				<p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+		
+		
+		<tr>
+			<td id="timing123">
+                29/06/2016 <br>
+                10:00 -14:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://www.entertainmentmanagementonline.com/wp-content/uploads/2013/05/FIVB-580x300.jpg"></div>
+               
+				<p style="color:orange"><strong>BVB Competiton</strong></p>
+				<p>BVB is held at sentosa.<br> It is a  for team bonding and make new friends.<br> Let's have fun.</p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)NRIC for attendance</p>
+            </td>
+        </tr>
+		
+		<tr>
+			<td id="timing123">
+                02/05/2016 <br>
+                18:00 -21:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://www.fittodo.com/images/Sports%20Photos/Sports%20Photos/Ping%20Pong.jpg"></div>
+             
+				<p style="color:orange"><strong>Table Tennis</strong></p>
+				<p>PolyRAWKS is held at NYP on Sept 7,2016.<br> It is a camp for team bonding and make new friends.</p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)$5 for our PUMA run shirt for those who wish to purchase</p>
+            </td>
+        </tr>
+		
+		<tr>
+			<td id="timing123">
+                15/03/2016 <br>
+                18:00 -21:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://image.shutterstock.com/z/stock-vector-taekwondo-font-text-graphic-vector-344546060.jpg"></div>
+               
+				<p style="color:orange"><strong>Taekwondo</strong></p>
+				<p>PolyRAWKS is held at NYP on Sept 7,2016.<br> It is a camp for team bonding and make new friends.</p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)$5 for our PUMA run shirt for those who wish to purchase</p>
+            </td>
+        </tr>
+		
+		<tr>
+			<td id="timing123">
+                08/01/2016 <br>
+                18:00 -21:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="http://d2dzjyo4yc2sta.cloudfront.net/?url=images.pitchero.com%2Fui%2F202681%2F1439632855_4520.jpg&w=720&t=fit&q=85"></div>
+               
+				<p style="color:orange"><strong>Tennis</strong></p>
+				<p>PolyRAWKS is held at NYP on Sept 7,2016.<br> It is a camp for team bonding and make new friends.</p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)$5 for our PUMA run shirt for those who wish to purchase</p>
+            </td>
+        </tr>
+		
+		<tr>
+			<td id="timing123">
+                19/12/2015 <br>
+                14:00 -17:00
+            </td>
+            <td>
+<div style="float:left; margin:0px 10px 0px 0px;"><img width="400" height="300" src="https://media.timeout.com/images/122739/617/347/image.jpg"></div>
+               
+				<p style="color:orange"><strong>Swimming</strong></p>
+				<p>PolyRAWKS is held at NYP on Sept 7,2016.<br> It is a camp for team bonding and make new friends. </p>
+	            <p> Things need to bring </p>
+	            <p>
+	             1)Water bottle <br>
+		         2)Any Dry-Fit shirt and shorts<br>
+	             3)$5 for our PUMA run shirt for those who wish to purchase</p>
+            </td>
+        </tr>
+		
+		
+		
+		
+
+    </tbody>
+</table>
+			
+		    </p>
+	    </div>
+	    </div>
+		
+	</div>
+	
+		
+		
+
+
+<!-- Use any element to open the sidenav -->
+<div id="chartContainer" style="height: 250px; width: 250px; display:block;" ></div>
+		<!---Contentdiv close-->
+        <div class="java">
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">X</span>
+      <h2>Registration</h2>
+    </div>
+    <div class="modal-body">
+      
+<div id="overlay">
+
+<form method="post">
+<h1>Registration</h1>
+<label>Name:
+<input type="text" id="name" onkeyup="checkExisting(this.value)" autocomplete="off">
+<span id="nameError" class="errMsg" size="20"> </span>
+</label>
+<label>Contact:
+<input type="text" id="contact" size="20"/>
+</label>
+<label>Email:
+<input type="text" id="email" size="20">
+</label>
+<label>School:
+<input type="text" id="schools" size="20">
+</label>
+<label>Food Preference: Eg.Halal, Vegetarian, None
+<input type="text" id="preference" size="20">
+</label>
+<ul id="buttons">
+<li>
+
+</li>
+<li>
+</li>
+<li>
+</li>
+</ul>
+</form>
+<button id="addButton" onclick="addToBook()">Submit</button><button onclick="clearItem()">Clear</button>
+
+</div>
+<div id="popup" style="display:none">
+	<h1>Find Contact</h1>
+	<label>name:
+		<input type="text" id="findName"/>
+	</label>
+	<p id="foundContact"></p>
+	<button>Go</button> 
+	<button onclick="mainMenu();">Back To Menu</button>
+</div>
+<table border="1" id="list" style="width:40%;margin:auto">
+<caption style="text-align:center; margin:5px; font-weight:bold">
+Click on table to close
+</caption>
+<thead>
+<tr><th>Name</th>
+    <th class="activitiesContact">Contact</th>
+	<th>Email</th>
+	<th>School</th>
+	<th>Preference</th>
+	
+</tr>
+</thead>
+<tbody>
+</tbody>
+
+</table>
+    </div>
+    <div class="modal-footer">
+	<button onclick="displayAll();">Attendance List</button>
+    </div>
+  </div>
+  </div>
+  </div> <footer>
+  <ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+  </div>
+ 
+  
+  </div>
+<script>
+
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+
+
+
+function adminDisplay(){
+if( position == "admin"){
+
+
+var actCont = document.getElementsByClassName("activitiesContact");
+		for(var i = 0 ; i < actCont.length ; i++){
+		actCont[i].style.display = "table-cell";}
+	}
+
+}
+
+
+function addToBook(){
+	var name=document.getElementById("name").value;
+	if (!checkExisting(name)){ 
+		var contact=document.getElementById("contact").value;
+		var actCont = document.getElementsByClassName("activitiesContact");
+		for(var i = 0 ; i < actCont.length ; i++){
+			actCont[i].style.display = "none";
+		}
+        var email=document.getElementById("email").value;
+		var schools=document.getElementById("schools").value;
+		var preference=document.getElementById("preference").value;
+		var obj={"name":name,"contact":contact,"email":email,"schools":schools,"preference":preference};
+		addressBook.push(obj);
+		localStorage.setItem("addressBook",JSON.stringify(addressBook));
+		
+		
+	}
+	
+	if(confirm("Do you want to buy your event shirt in our website?")){
+	location.href = "camp.html";
+	}
+	
+	
+}
+
+document.addEventListener("DOMContentLoaded",docIsReady);
+var addressBook;
+function docIsReady(){
+	
+	addressBook=localStorage.getItem("addressBook");
+ 
+	if (addressBook==null){
+		addressBook=[];
+	}
+	else {	
+		addressBook=JSON.parse(addressBook);
+	}
+	
+	document.getElementById("list").addEventListener("click",function(){
+		this.style.display="none";
+	});
+	
+
+
+}
+
+    
+
+
+
+
+function checkExisting(name){
+	var existing=false;
+	for (i=0; i<addressBook.length; i++){
+		var obj=addressBook[i];
+		if (obj.name==name){
+			existing=true;
+			break;
+		}
+	}
+	if (existing){
+		document.getElementById("addButton").disabled="true";
+		document.getElementById("nameError").innerHTML="name exist!!";
+		document.getElementById("nameError").style.display="inline";
+	}
+	else {
+	    document.getElementById("addButton").disabled="";
+		document.getElementById("nameError").style.display="none";
+	}
+	return existing;
+}
+
+
+function mainMenu(){
+	document.getElementById("overlay").style.display="block";
+	document.getElementById("popup").style.display="none";
+	document.getElementById("name").value="";
+	document.getElementById("contact").value="";
+	document.getElementById("email").value="";
+	document.getElementById("schools").value="";
+	document.getElementById("preference").value="";
+	document.getElementById("nameError").style.display="none";
+}
+
+
+function displayAll(){
+
+	addressBook.sort(function(obj1,obj2){
+		if (obj1.name>obj2.name) 
+			return -1;
+		else if (obj1.name<obj2.name)
+			return 1;
+		else 
+			return 0;
+    });
+	
+	for (i=0; i<addressBook.length; i++){ 
+		console.log(i+" --"+addressBook[i])
+		var row=document.getElementById("list").insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(3);
+		var cell5 = row.insertCell(4);
+		cell1.innerHTML = addressBook[i].name;
+		cell2.innerHTML = addressBook[i].contact;
+		cell2.setAttribute("class","activitiesContact");
+		cell3.innerHTML = addressBook[i].email;
+		cell4.innerHTML = addressBook[i].schools;
+		cell5.innerHTML = addressBook[i].preference;
+	}
+	document.getElementById("list").style.display="table";
+	adminDisplay();
+	
+	
+}
+</script>
+
+			
+			
+		
+			</div>
+				
+		
+				
+			
+				
+		</div>
+			
+			
+			<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+	
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	
+</html>	
+	
+	

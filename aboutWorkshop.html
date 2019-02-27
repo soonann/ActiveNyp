@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/baofengstylesheet.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="css/modalstylesheet.css">
+
+<style>
+.profileDownarrow{
+width:10px;
+height:10px;
+
+
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;
+color:black;}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0} 
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+#registername{
+border-radius:49px;
+}
+#registercontact{
+border-radius:49px;
+}
+
+#overlay label{
+display: block;
+    margin: 10px;
+}
+.errMsg {
+	color:red;
+	font-size:0.8em;
+	font-style:italic;
+}
+ul#buttons li {
+	display:inline;
+	margin:5px;
+}
+div#popup {
+	border-radius:10%;
+	background-color:white;
+	padding:20px;
+	position:absolute;
+	left:30%;
+	top:20%;
+	width:30%;
+	height:30%;
+	
+}
+
+table#list {
+	display:none;
+	border-collapse:collapse;
+ 
+}
+
+table#list tr th td{
+	border:1px solid blue;
+}
+
+
+
+
+
+.tableworkshop{
+   border-collapse: collapse;
+	position:relative;
+	left: 15%;
+    color:white;
+}
+
+.trworkshop, .tdworkshop{
+border:3px solid black;
+			padding:10px;
+}
+
+.thworkshop{
+border:3px solid black;
+background-color:black;
+}
+
+button{
+border-radius:40px;
+padding:10px;
+}
+
+.contentDiv{
+color:white;
+}
+
+.Speaker{
+text-align:center;
+padding:50px;
+}
+
+
+			#imageDiv img {
+				width:100px;
+				height:100px;
+				border:1px solid white;
+				margin:9px;
+			}
+
+			#imageDiv {
+				width:800px;
+				height:120px;
+				background-color:black;
+				margin:auto;
+				opacity:0.8;
+			}
+
+			#imageDiv li {
+				display:inline-block;
+				width:104px;
+				height:120px;
+				float:middle;
+				margin:2px;
+			}
+
+			#imageDiv img:hover {
+				border:5px solid white;
+			}
+
+			#selectedImage {
+				width:500px;
+				height:500px;
+				display:block;
+				margin:auto;
+			}
+.listofworkshop{
+padding:50px;
+}
+#ShowMe1{
+position:relative;
+margin-top:-68.5%;
+}
+
+.default{
+position:relative;
+left:44%;
+}
+</style>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script src="javascript/database.js"></script>
+<script>
+
+
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+  
+document.addEventListener("DOMContentLoaded",docIsReady);
+var addressBook;
+function docIsReady(){
+	
+	addressBook=localStorage.getItem("addressBook");
+ 
+	if (addressBook==null){
+		addressBook=[];
+	}
+	else {	
+		addressBook=JSON.parse(addressBook);
+	}
+	
+	document.getElementById("list").addEventListener("click",function(){
+		this.style.display="none";
+	});
+	
+	/* build table first */
+	for (var i=0; i<addressBook.length; i++){ 
+		var row=document.getElementById("list").insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = addressBook[i].name;
+		cell2.innerHTML = addressBook[i].contact;
+	}
+}
+
+
+function addToBook(){
+    var obj;
+	var contact=document.getElementById("contact").value;
+	if (!checkExisting(contact)){ 
+		var name=document.getElementById("name").value;		
+		obj={"name":name,"contact":contact};
+		addressBook.push(obj);
+		localStorage.setItem("addressBook",JSON.stringify(addressBook));
+	}
+	/* add to table */
+	var row=document.getElementById("list").insertRow(-1);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	cell1.innerHTML = obj.name;
+	cell2.innerHTML = obj.contact;
+	
+	alert("You have sign up for the WorkShop!");
+}
+function checkExisting(contact){
+	var existing=false;
+	for (i=0; i<addressBook.length; i++){
+		var obj=addressBook[i];
+		if (obj.contact==contact){
+			existing=true;
+			break;
+		}
+	}
+	if (existing){
+		document.getElementById("addBtn").disabled="true";
+		document.getElementById("nameError").innerHTML="contact exist!!";
+		document.getElementById("nameError").style.display="inline";
+	}
+	else {
+	    document.getElementById("addBtn").disabled="";
+		document.getElementById("nameError").style.display="none";
+	}
+	return existing;
+}
+
+function findContact(){
+    var found=false;
+	var obj=null;
+	var name=document.getElementById("findName").value;
+	for (i=0; i<addressBook.length; i++){
+		obj=addressBook[i];
+		if (obj.name==name){
+			found=true;
+			break;
+		}
+	}
+	if (found) {
+		console.log(found);
+		document.getElementById("foundContact").innerHTML=obj.contact;
+	}
+	else {
+		console.log(!found);
+		document.getElementById("foundContact").innerHTML="No such Name!!";
+	}
+	
+	return;
+}
+function mainMenu(){
+	document.getElementById("overlay").style.display="block";
+	document.getElementById("popup").style.display="none";
+	document.getElementById("name").value="";
+	document.getElementById("contact").value="";
+	document.getElementById("nameError").style.display="none";
+}
+
+function goSearch() {
+	document.getElementById("overlay").style.display="none";
+	document.getElementById("popup").style.display="block";
+	
+}
+
+function displayAll(){
+	document.getElementById("list").style.display="table";
+}
+
+function sortTable() {
+
+	addressBook.sort(function(obj1,obj2){
+		if (obj1.name>obj2.name) 
+			return 1;
+		else if (obj1.name<obj2.name)
+			return -1;
+		else 
+			return 0;
+    });
+	
+	console.log("Sorted");
+	
+	/* reload table */
+	var tableRow=document.querySelectorAll("#list tr");
+	console.log(tableRow);
+	console.log("no of rows="+tableRow.length);
+	for (var i=1; i<tableRow.length; i++){
+	    console.log("Deleting "+tableRow[i]);
+		tableRow[i].parentNode.removeChild(tableRow[i]);
+	}
+		
+	for (var i=0; i<addressBook.length; i++){ 
+		var row=document.getElementById("list").insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var cell2 = row.insertCell(1);
+		cell1.innerHTML = addressBook[i].name;
+		cell2.innerHTML = addressBook[i].contact;
+	}
+	document.getElementById("list").style.display="table";
+	
+	
+}
+
+
+	function getPrice(){
+		var x;
+		x = localStorage.getItem("price");
+		var check = localStorage.getItem("cart");
+		console.log(check);
+		if(check == null){
+			document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+0+"</p>";
+		}
+		else{document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+x+"</p>";}
+	}
+
+</script>
+
+</head>
+<body>
+<body onload="getPrice()" onscroll="navbar()" >
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+		</div>		
+		<div class="contentDiv">
+				<div class="Speaker"><h1><font size="10">About the Workshop</font></h1>
+	
+					<h2><center>The workshop offer you the chance to listen to great motivational speakers talks. We hope that through listening to many of these motivational talks, you are able to help yourself grow and have a fulfilling life at Poly. We have talks every Monday to Saturday at different timing which you can view at the schedule tab. So join us now!</center></h2>
+					
+				</div>
+		
+				<div class="image">
+					<img id="selectedImage" src="images/pic.jpg"/>
+				</div>
+		
+					<script>
+					function showPicture(theImg){
+						var image = theImg.src;
+						document.getElementById("selectedImage").src = image;
+						}
+					</script>
+		
+				<div class="listofworkshop">
+					<p><h2><center>List of Workshop</center></h2></p>
+						<div id="imageDiv">
+							<ul>
+								<li><img src="images/pic.jpg" onclick="showPicture(this);"/></li>
+								<li><img src="images/pic2.jpg" onclick="showPicture(this);"/></li>
+								<li><img src="images/pic3.jpg" onclick="showPicture(this);"/></li>
+								<li><img src="images/pic4.jpeg" onclick="showPicture(this);"/></li>
+								<li><img src="images/pic5.jpg" onclick="showPicture(this);"/></li>
+								<li><img src="images/pic6.jpg" onclick="showPicture(this);"/></li>
+							</ul>
+						</div>
+				</div>
+		
+		
+		
+			<select class="default" id="uni" name="uni" onchange="itemChange(this)" onclick="scrollTo()">
+	  
+		  
+				<option value="" selected>Choose your option</option>
+				<option value="1">Leadership</option>
+				<option value="2">Responsibility</option>
+			</select>
+
+		<!-- Leadership -->
+				<div id="ShowMe" class="inv" style="visibility:visible">
+						<table class="tableworkshop">
+							<caption><font size="5px">Leadership Workshop</caption>
+							<tr class="trworkshop">
+							<th class="thworkshop">Workshop</th>
+							<th class="thworkshop"></th>
+							<th class="thworkshop">Details</th>
+							<th class="thworkshop"></th>
+						</tr>
+						<tr>
+							<td class="tdworkshop"><img src ="images/pic.jpg"></td>
+							<td class="tdworkshop">Leadership I</td>
+						<td class="tdworkshop">Join this leadership event!</td>
+						<td class="tdworkshop"><button id = "myBtn">Sign Up<!-- Trigger/Open The Modal --></button>
+
+				<!-- The Modal -->
+				<div id="myModal" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+						<div class="modal-header">
+							<span class="close">X</span>
+							<h2>Workshop Sign Up</h2>
+						</div>
+						<div class="modal-body">
+						
+								<div id="overlay">
+								
+									<h1>Sign Up</h1>
+									<label>Name:
+									<input type="text" id="name" onkeyup="checkExisting(this.value)" autocomplete="off">
+									</label>
+									<label>Contact Number:
+									<input type="text" id="contact">
+									<span id="nameError" class="errMsg" style="display:none"></span>
+									</label>
+									<ul id="buttons">
+									<li>
+									<button id="addBtn" onclick="addToBook();" disabled="true">Sign Up</button>
+									</li>
+									<li>
+									<button onclick="goSearch();">Search Name</button>
+									</li>
+									<li>
+									<button onclick="displayAll();">Attendance List</button>
+									</li>
+									<li>
+									<button onclick="sortTable();">Sort List</button>
+									</li>
+									</ul>
+								</div>
+								<div id="popup" style="display:none">
+									<h1>Find Contact</h1>
+									<label>name:
+										<input type="text" id="findName"/>
+									</label>
+									<p id="foundContact"></p>
+									<button onclick="findContact();">Go</button> 
+									<button onclick="mainMenu();">Back To Menu</button>
+								</div>
+								
+							<table border="1" id="list" style="width:40%;margin:auto">
+								<caption style="text-align:center; margin:5px; font-weight:bold">
+								Click on table to close
+								</caption>
+								<tr class="trmodal"><th class="thmodal">Name</th><th>Contact</th></tr>
+							</table>
+					</div>
+				  <div class="modal-footer">
+					<h3>Attendance List</h3>
+				  </div>
+				</div>
+			</div>
+				</td>
+				</tr>
+			
+			<tr class="trworkshop">
+				<td class="tdworkshop"><img src="images/pic2.jpg"></td>
+				<td class="tdworkshop">Leadership II</td>
+				<td class="tdworkshop">Join the immediatate level of Leadership now!</td>
+				<td class="tdworkshop"><button id ="myBtn2">Sign Up</button>
+				<!--The Modal-->
+				<div id="myModal" class="modal">
+
+				<!--Modal content-->
+				<div class="modal-content">
+				<div class="modal-header">
+				<span class="close">X</span>
+				<h2>Sign Up</h2>
+				</div>
+				<div class="modal-body">
+				<div id="overlay">
+						<h1>My Address Book</h1>
+						<label>Name:
+						<input type="text" id="name" onkeyup="checkExisting(this.value)" autocomplete="off">
+						<span id="nameError" class="errMsg" style="display:none"></span>
+						</label>
+						<label>Contact Number:
+						<input type="text" id="contact">
+						</label>
+						<ul id="buttons">
+						<li>
+						<button id="addBtn" onclick="addToBook();" disabled="true">Add</button>
+						</li>
+						<li>
+						<button onclick="goSearch();">Search</button>
+						</li>
+						<li>
+						<button onclick="displayAll();">Display List</button>
+				</li>
+				<li>
+				<button onclick="sortTable();">Sort List</button>
+				</li>
+				</ul>
+				</div>
+				<div id="popup" style="display:none">
+					<h1>Find Contact</h1>
+					<label>name:
+						<input type="text" id="findName"/>
+					</label>
+					<p id="foundContact"></p>
+					<button onclick="findContact();">Go</button> 
+					<button onclick="mainMenu();">Back To Menu</button>
+				</div>
+				<table border="1" id="list" style="width:40%;margin:auto">
+				<caption style="text-align:center; margin:5px; font-weight:bold">
+				Click on table to close
+				</caption>
+				<tr class="trmodal"><th class="thmodal">Name</th><th>Contact</th></tr>
+				</table>
+				  </div>
+				  
+				  
+				  <div class="modal-footer">
+						<h3>Modal Footer</h3>
+				  </div>
+				  
+				  
+				  
+				  
+				</div>
+				</div>
+							</td>
+							</tr>
+							
+							<tr class="trworkshop">
+								<td class="tdworkshop"><img src="images/pic3.jpg"></td>
+								<td class="tdworkshop">Leadership III</td>
+								<td class="tdworkshop">Join the Advanced level of Leadership now!</td>
+								<td class="tdworkshop"><button id="myBtn">Sign Up</button>
+							<!--The Modal-->
+				<div id="myModal" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+					<div class="modal-header">
+					<span class="close">X</span>
+					<h2>Sign Up</h2>
+					</div>
+					<div class="modal-body">
+					<div id="overlay">
+					<h1>My Address Book</h1>
+					<label>Name:
+					<input type="text" id="name" onkeyup="checkExisting(this.value)" autocomplete="off">
+					<span id="nameError" class="errMsg" style="display:none"></span>
+					</label>
+					<label>Contact Number:
+					<input type="text" id="contact">
+					</label>
+					<ul id="buttons">
+					<li>
+					<button id="addBtn" onclick="addToBook();" disabled="true">Add</button>
+					</li>
+					<li>
+					<button onclick="goSearch();">Search</button>
+					</li>
+					<li>
+					<button onclick="displayAll();">Display List</button>
+					</li>
+					<li>
+					<button onclick="sortTable();">Sort List</button>
+					</li>
+					</ul>
+					</div>
+					<div id="popup" style="display:none">
+						<h1>Find Contact</h1>
+						<label>name:
+							<input type="text" id="findName"/>
+						</label>
+						<p id="foundContact"></p>
+						<button onclick="findContact();">Go</button> 
+						<button onclick="mainMenu();">Back To Menu</button>
+					</div>
+					<table border="1" id="list" style="width:40%;margin:auto">
+					<caption style="text-align:center; margin:5px; font-weight:bold">
+					Click on table to close
+					</caption>
+					<tr class="trmodal"><th class="thmodal">Name</th><th>Contact</th></tr>
+					</table>
+					  </div>
+					  <div class="modal-footer">
+						<h3>Modal Footer</h3>
+					  </div>
+					</div>
+					</div>
+								</td>
+								</tr>
+				
+				
+				<!-- Responsibility -->
+			
+				<table class="tableworkshop" id="ShowMe1" style="visibility:hidden">
+				<caption><font size="5px">Responsibility Workshop</caption>
+				<tr class="trworkshop">
+				<th class="thworkshop">Workshop</th>
+				<th class="thworkshop"></th>
+				<th class="thworkshop">Details</th>
+				<th class="thworkshop"></th>
+				</tr>
+				<tr>
+				<td class="tdworkshop"><img src ="images/pic4.jpeg"></td>
+				<td class="tdworkshop">Responsibility I</td>
+				<td class="tdworkshop">Join this Responsibility event!</td>
+				<td class="tdworkshop"><button id = "myBtn">Sign Up<!-- Trigger/Open The Modal --></button>
+
+
+				<!-- The Modal -->
+				<div id="myModal" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+					<div class="modal-header">
+					<span class="close">X</span>
+					<h2>Sign Up</h2>
+					</div>
+					<div class="modal-body">
+					<div id="overlay">
+				<h1>My Address Book</h1>
+				<label>Name:
+				<input type="text" id="name" onkeyup="checkExisting(this.value)" autocomplete="off">
+				<span id="nameError" class="errMsg" style="display:none"></span>
+				</label>
+				<label>Contact Number:
+				<input type="text" id="contact">
+				</label>
+				<ul id="buttons">
+				<li>
+				<button id="addBtn" onclick="addToBook();" disabled="true">Add</button>
+				</li>
+				<li>
+				<button onclick="goSearch();">Search</button>
+				</li>
+				<li>
+				<button onclick="displayAll();">Display List</button>
+				</li>
+				<li>
+				<button onclick="sortTable();">Sort List</button>
+				</li>
+				</ul>
+				</div>
+			<div id="popup" style="display:none">
+				<h1>Find Contact</h1>
+				<label>name:
+					<input type="text" id="findName"/>
+				</label>
+				<p id="foundContact"></p>
+				<button onclick="findContact();">Go</button> 
+				<button onclick="mainMenu();">Back To Menu</button>
+			</div>
+			
+			<table border="1" id="list" style="width:40%;margin:auto">
+			<caption style="text-align:center; margin:5px; font-weight:bold">
+			Click on table to close
+			</caption>
+			<tr class="trmodal"><th class="thmodal">Name</th><th>Contact</th></tr>
+			</table>
+			  </div>
+			  <div class="modal-footer">
+				<h3>Modal Footer</h3>
+			  </div>
+			</div>
+			</div>
+						</td>
+						</tr>
+			
+			<tr class="trworkshop">
+			<td class="tdworkshop"><img src="images/pic5.jpg"></td>
+			<td class="tdworkshop">Leadership II</td>
+			<td class="tdworkshop">Join the immediatate level of Responsibility now!</td>
+			<td class="tdworkshop"><button id ="myBtn">Sign Up</button>
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+				<!-- Modal content -->
+				<div class="modal-content">
+				<div class="modal-header">
+				<span class="close">X</span>
+				<h2>Sign Up</h2>
+				</div>
+				<div class="modal-body">
+				<div id="overlay">
+		<h1>My Address Book</h1>
+		<label>Name:
+		<input type="text" id="name" onkeyup="checkExisting(this.value)" autocomplete="off">
+		<span id="nameError" class="errMsg" style="display:none"></span>
+		</label>
+		<label>Contact Number:
+		<input type="text" id="contact">
+		</label>
+		<ul id="buttons">
+		<li>
+		<button id="addBtn" onclick="addToBook();" disabled="true">Add</button>
+		</li>
+		<li>
+		<button onclick="goSearch();">Search</button>
+		</li>
+		<li>
+		<button onclick="displayAll();">Display List</button>
+		</li>
+		<li>
+		<button onclick="sortTable();">Sort List</button>
+		</li>
+		</ul>
+		</div>
+		<div id="popup" style="display:none">
+			<h1>Find Contact</h1>
+			<label>name:
+				<input type="text" id="findName"/>
+			</label>
+			<p id="foundContact"></p>
+			<button onclick="findContact();">Go</button> 
+			<button onclick="mainMenu();">Back To Menu</button>
+		</div>
+		<table border="1" id="list" style="width:40%;margin:auto">
+		<caption style="text-align:center; margin:5px; font-weight:bold">
+		Click on table to close
+		</caption>
+		<tr class="trmodal"><th class="thmodal">Name</th><th>Contact</th></tr>
+		</table>
+		  </div>
+		  <div class="modal-footer">
+			<h3>Modal Footer</h3>
+		  </div>
+		</div>
+		</div>
+					</td>
+					</tr>
+			
+			<tr class="trworkshop">
+			<td class="tdworkshop"><img src="images/pic6.jpg"></td>
+			<td class="tdworkshop">Responsibility III</td>
+			<td class="tdworkshop">Join the Advanced level of Responsibility now!</td>
+			<td class="tdworkshop"><button id="myBtn">Sign Up</button>
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+			  <!-- Modal content -->
+			  <div class="modal-content">
+				<div class="modal-header">
+				<span class="close">X</span>
+				<h2>Sign Up</h2>
+				</div>
+				<div class="modal-body">
+				<div id="overlay">
+			<h1>My Address Book</h1>
+			<label>Name:
+			<input type="text" id="registername" onkeyup="checkExisting(this.value)" autocomplete="off">
+			<span id="nameError" class="errMsg" style="display:none"></span>
+			</label>
+			<label>Contact Number:
+			<input type="text" id="registercontact">
+			</label>
+			<ul id="buttons">
+			<li>
+			<button id="addBtn" onclick="addToBook();" disabled="true">Add</button>
+			</li>
+			<li>
+			<button onclick="goSearch();">Search</button>
+			</li>
+			<li>
+			<button onclick="displayAll();">Display List</button>
+			</li>
+			<li>
+			<button onclick="sortTable();">Sort List</button>
+			</li>
+			</ul>
+			</div>
+					<div id="popup" style="display:none">
+						<h1>Find Contact</h1>
+						<label>name:
+						<input type="text" id="findName"/>
+						</label>
+					<p id="foundContact"></p>
+						<button onclick="findContact();">Go</button> 
+						<button onclick="mainMenu();">Back To Menu</button>
+					</div>
+			<table border="1" id="list" style="width:40%;margin:auto">
+			<caption style="text-align:center; margin:5px; font-weight:bold">
+			Click on table to close
+			</caption>
+			<tr class="trmodal"><th class="thmodal">Name</th><th>Contact</th></tr>
+			</table>
+			  </div>
+			  <div class="modal-footer">
+				<h3>Modal Footer</h3>
+			  </div>
+			</div>
+			</div>
+						</td>
+						</tr>
+						</table>
+						<footer>
+		
+				
+			
+				<ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+			</div>
+			
+	<script>
+				function itemChange(v) {
+				   
+				  
+				  var c = document.getElementById("ShowMe");
+				  var d = document.getElementById("ShowMe1");
+				   v=v.value;
+					 
+					 if(v === '1'){
+					
+					c.style.visibility = "visible";
+					d.style.visibility = "hidden";
+					}
+					else if(v === '2'){
+					
+
+					 c.style.visibility = "hidden";
+					d.style.visibility = "visible";
+					
+					}
+					
+					else {
+						
+					c.style.visibility = "hidden";
+					d.style.visibility = "hidden";
+
+
+						}
+				}
+
+				// Get the modal
+				var modal = document.getElementById('myModal');
+
+				// Get the button that opens the modal
+				var btn = document.getElementById("myBtn");
+
+				// Get the <span> element that closes the modal
+				var span = document.getElementsByClassName("close")[0];
+
+				// When the user clicks on the button, open the modal 
+				btn.onclick = function() {
+				
+					<!-- if(loggedIn != null){<!-- modal.style.display = "block"; -->}
+					
+					
+				<!-- 	else{alert("You have to be signed in to sign up !")} --> -->
+				modal.style.display = "block";
+					
+				}
+
+				// When the user clicks on <span> (x), close the modal
+				span.onclick = function() {
+					modal.style.display = "none";
+				}
+
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function(event) {
+					if (event.target == modal) {
+						modal.style.display = "none";
+					}
+				}
+
+				
+			</script>
+			
+		
+		
+		
+		
+
+		
+		
+		
+		
+</div>
+			
+		
+
+<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+
+
+
+
+
+
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>	
+			
+				
+		
+			
+			
+		
+
+
+</body>
+
+</html>
+

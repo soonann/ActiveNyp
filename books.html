@@ -1,0 +1,645 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheetnew1.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+
+<style>
+
+	
+</style>
+
+<script src="javascript/database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+	//Sorting
+	function changeImage(){
+		document.getElementById("book1").href="book 1.html";
+		document.getElementById("book2").href="book 2.html";
+		document.getElementById("book3").href="book 3.html";
+		document.getElementById("book4").href="book 4.html";
+		document.getElementById("book5").href="book 5.html";
+		document.getElementById("book6").href="book 6.html";
+		document.getElementById("book7").href="book 7.html";
+		document.getElementById("book8").href="book 8.html";
+		document.getElementById("book9").href="book 9.html";
+		document.getElementsByClassName("pic")[0].src="images/book 1.jpg";
+		document.getElementsByClassName("pic")[1].src="images/book 2.jpg"; 
+		document.getElementsByClassName("pic")[2].src="images/book 3.jpg"; 
+		document.getElementsByClassName("pic")[3].src="images/book 4.jpg"; 
+		document.getElementsByClassName("pic")[4].src="images/book 5.jpg"; 
+		document.getElementsByClassName("pic")[5].src="images/book 6.jpg"; 
+		document.getElementsByClassName("pic")[6].src="images/book 7.jpg"; 
+		document.getElementsByClassName("pic")[7].src="images/book 8.jpg"; 
+		document.getElementsByClassName("pic")[8].src="images/book 9.jpg"; 
+		
+	}
+
+	function changeImage1(){ 
+		document.getElementById("book1").href="book 6.html";
+		document.getElementById("book2").href="book 4.html";
+		document.getElementById("book3").href="book 3.html";
+		document.getElementById("book4").href="book 8.html";
+		document.getElementById("book5").href="book 1.html";
+		document.getElementById("book6").href="book 7.html";
+		document.getElementById("book7").href="book 9.html";
+		document.getElementById("book8").href="book 2.html";
+		document.getElementById("book9").href="book 5.html";
+		document.getElementsByClassName("pic")[0].src="images/book 6.jpg";
+		document.getElementsByClassName("pic")[1].src="images/book 4.jpg"; 
+		document.getElementsByClassName("pic")[2].src="images/book 3.jpg"; 
+		document.getElementsByClassName("pic")[3].src="images/book 8.jpg"; 
+		document.getElementsByClassName("pic")[4].src="images/book 1.jpg"; 
+		document.getElementsByClassName("pic")[5].src="images/book 7.jpg"; 
+		document.getElementsByClassName("pic")[6].src="images/book 9.jpg"; 
+		document.getElementsByClassName("pic")[7].src="images/book 2.jpg"; 
+		document.getElementsByClassName("pic")[8].src="images/book 5.jpg"; 
+	}
+
+	function changeImage2(){
+		document.getElementById("book1").href="book 7.html";
+		document.getElementById("book2").href="book 1.html";
+		document.getElementById("book3").href="book 2.html";
+		document.getElementById("book4").href="book 5.html";
+		document.getElementById("book5").href="book 9.html";
+		document.getElementById("book6").href="book 3.html";
+		document.getElementById("book7").href="book 4.html";
+		document.getElementById("book8").href="book 6.html";
+		document.getElementById("book9").href="book 8.html";
+		document.getElementsByClassName("pic")[0].src="images/book 7.jpg";
+		document.getElementsByClassName("pic")[1].src="images/book 1.jpg"; 
+		document.getElementsByClassName("pic")[2].src="images/book 2.jpg"; 
+		document.getElementsByClassName("pic")[3].src="images/book 5.jpg"; 
+		document.getElementsByClassName("pic")[4].src="images/book 9.jpg"; 
+		document.getElementsByClassName("pic")[5].src="images/book 3.jpg"; 
+		document.getElementsByClassName("pic")[6].src="images/book 4.jpg"; 
+		document.getElementsByClassName("pic")[7].src="images/book 6.jpg"; 
+		document.getElementsByClassName("pic")[8].src="images/book 8.jpg"; 
+		
+	}
+
+	function changeImage3(){
+		document.getElementById("book1").href="book 8.html";
+		document.getElementById("book2").href="book 6.html";
+		document.getElementById("book3").href="book 4.html";
+		document.getElementById("book4").href="book 9.html";
+		document.getElementById("book5").href="book 3.html";
+		document.getElementById("book6").href="book 5.html";
+		document.getElementById("book7").href="book 2.html";
+		document.getElementById("book8").href="book 1.html";
+		document.getElementById("book9").href="book 7.html";
+		document.getElementsByClassName("pic")[0].src="images/book 8.jpg";
+		document.getElementsByClassName("pic")[1].src="images/book 6.jpg"; 
+		document.getElementsByClassName("pic")[2].src="images/book 4.jpg"; 
+		document.getElementsByClassName("pic")[3].src="images/book 9.jpg"; 
+		document.getElementsByClassName("pic")[4].src="images/book 3.jpg"; 
+		document.getElementsByClassName("pic")[5].src="images/book 5.jpg"; 
+		document.getElementsByClassName("pic")[6].src="images/book 2.jpg"; 
+		document.getElementsByClassName("pic")[7].src="images/book 1.jpg"; 
+		document.getElementsByClassName("pic")[8].src="images/book 7.jpg"; 
+		
+	}
+
+	function dropDownList(){
+
+
+	var optionValue = document.getElementById("sort").value;
+	
+		if (optionValue==1){
+				changeImage();
+		}
+
+			else if (optionValue==2){
+				changeImage1();
+			}
+				else if (optionValue==3){
+					changeImage2();
+				}
+				
+					else{
+						changeImage3();
+				
+				}
+				
+				
+	}
+
+
+
+	function changePrice(){
+		document.getElementById("amount1").innerHTML="$29.90";
+		document.getElementById("amount2").innerHTML="$29.90";
+		document.getElementById("amount3").innerHTML="$49.90";
+		document.getElementById("amount4").innerHTML="$59.90";
+		document.getElementById("amount5").innerHTML="$49.90";
+		document.getElementById("amount6").innerHTML="$69.90";
+		document.getElementById("amount7").innerHTML="$19.90";
+		document.getElementById("amount8").innerHTML="$69.90";
+		document.getElementById("amount9").innerHTML="$49.90";
+		
+	}
+
+	function changePrice1(){ 
+		document.getElementById("amount1").innerHTML="$69.90";
+		document.getElementById("amount2").innerHTML="$59.90";
+		document.getElementById("amount4").innerHTML="$69.90";
+		document.getElementById("amount5").innerHTML="$49.90";
+		document.getElementById("amount6").innerHTML="$19.90";
+		document.getElementById("amount7").innerHTML="$49.90";
+		document.getElementById("amount8").innerHTML="$29.90";
+		document.getElementById("amount9").innerHTML="$49.90";
+		
+	}
+
+	function changePrice2(){
+		document.getElementById("amount1").innerHTML="$19.90";
+		document.getElementById("amount2").innerHTML="$29.90";
+		document.getElementById("amount3").innerHTML="$29.90";
+		document.getElementById("amount4").innerHTML="$49.90";
+		document.getElementById("amount5").innerHTML="$49.90";
+		document.getElementById("amount6").innerHTML="$49.90";
+		document.getElementById("amount7").innerHTML="$59.90";
+		document.getElementById("amount8").innerHTML="$69.90";
+		document.getElementById("amount9").innerHTML="$69.90";
+		
+	}
+
+	function changePrice3(){
+		document.getElementById("amount1").innerHTML="$69.90";
+		document.getElementById("amount2").innerHTML="$69.90";
+		document.getElementById("amount3").innerHTML="$59.90";
+		document.getElementById("amount4").innerHTML="$49.90";
+		document.getElementById("amount5").innerHTML="$49.90";
+		document.getElementById("amount6").innerHTML="$49.90";
+		document.getElementById("amount7").innerHTML="$29.90";
+		document.getElementById("amount8").innerHTML="$29.90";
+		document.getElementById("amount9").innerHTML="$19.90";
+		
+	}
+	
+
+	function dropDownList1(){
+
+	var optionValue = document.getElementById("sort").value;
+
+	if (optionValue==1){
+		changePrice();
+	}
+
+		else if (optionValue==2){
+			changePrice1();
+		}
+			else if (optionValue==3){
+				changePrice2();
+			}
+				else{
+					changePrice3();
+				}
+	}
+
+	//search
+	function choice1(){
+		document.getElementById("search").value;
+		window.location.href = "camp.html";
+	}
+	function choice2(){
+		document.getElementById("search").value;
+		window.location.href = "activenypshirt.html";
+	}
+	function choice3(){
+		document.getElementById("search").value;
+		window.location.href = "books.html";
+	}
+
+	function search(){
+
+	var optionValue = document.getElementById("search").value;
+
+			if (optionValue==7){
+				choice1();
+			}
+				else if(optionValue==8){
+					choice2();
+				}
+					else {
+						choice3();
+					}
+	}
+
+
+	function getPrice(){
+		var x;
+		x = localStorage.getItem("price");
+		var check = localStorage.getItem("cart");
+		console.log(check);
+		if(check == null){
+			document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+0+"</p>";
+		}
+		else{document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+x+"</p>";}
+	}
+	
+
+	
+		
+
+
+
+
+</script>
+
+</head>
+
+	</head>
+
+	<body onload = "getPrice()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					<a href="Shopping summary.html"><div class="cartIcon"></div></a>
+					<li class="cart"></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+				
+			
+			<div class="contentDiv">
+		
+			<div class="leftDiv">
+				<br>
+				<div>
+					<p class="preference">Search your preference here!!!</p>
+					<img id="arrow" src="images/arrow.png" height="40px" width="40px">
+						<select onchange="search()" id="search">
+								<option>Select Your Option</option>
+								<option value="7" >Camp Shirt</option>
+								<option value="8" >Active NYP Shirt</option>
+								<option value="9" >Leadership Books</option>
+						</select>
+
+				</div>
+				
+				<div class="joinimage">
+					<img src="images/discount.png" height="300px" width="150px">
+				</div>	
+					
+				<div>
+					<a href="#"><h1 onclick="popOutLogin()" class="join">Join us<br> now !!!</h1></a>
+				</div>
+		
+		
+			</div>
+		
+			<div class="topContent">
+				<h1 class="colorWhite">Leadership Books</h1>
+				<p class="sortBy">Sort By</p>
+					<select id="sort" onchange="dropDownList(),dropDownList1()">
+						<option value="1">Latest</option>
+						<option value="2">Most Popular</option>
+						<option value="3">Price - Low to High</option>
+						<option value="4">Price - High to Low</option>
+					</select>
+
+			</div>
+			
+			<div class="itemMain">
+		
+				<div class="item">
+					<a id="book1" href="book 1.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 1.jpg" height="200px" width="200px" /</a>
+					
+					<p id="amount1">SGD$29.90</p>
+					
+				</div>
+				
+				<div class="item">
+					<a id="book2" href="book 2.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 2.jpg" height="200px" width="200px"/></a>
+					
+					<p id="amount2">SGD$29.90</p>
+					
+				</div>
+				
+				<div class="item">
+					<a id="book3" href="book 3.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 3.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount3">SGD$49.90</p>
+					
+				</div>
+			
+				<div class="item">
+					<a id="book4" href="book 4.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 4.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount4">SGD$59.90</p>
+					
+				</div>
+				
+				<div class="item">
+					<a id="book5" href="book 5.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 5.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount5">SGD$49.90</p>
+					
+				</div>
+				
+				<div class="item">
+					<a id="book6" href="book 6.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 6.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount6">SGD$69.90</p>
+					
+				</div>
+			
+				<div class="item">
+					<a id="book7" href="book 7.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 7.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount7">SGD$19.90</p>
+					
+				</div>
+			
+				<div class="item">
+					<a id="book8" href="book 8.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 8.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount8">SGD$69.90</p>
+					
+				</div>
+				
+				<div class="item">
+					<a id="book9" href="book 9.html"><button class="tooltip">Add to Cart</button><img class="pic" src="images/book 9.jpg" height="200px" width="200px"/></a>
+				
+					<p id="amount9">SGD$49.90</p>
+					
+				</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</div>
+			<footer>
+		
+				
+			
+				<ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+		</div>
+		
+			
+		<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+			
+			
+			
+			
+	
+		
+	
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	
+</html>
+	
+	

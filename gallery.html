@@ -1,0 +1,391 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheetnew7.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+<style>
+
+	
+</style>
+
+<script src="javascript/database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+	var images = ["images/join.png","images/rockclimbling.jpg","images/archery1.jpg","images/cycling.jpg","images/frisbee2.jpg","images/frisbee1.jpg","images/swimming1.jpg"];
+	var imageNum = 0;
+	var imageLength = images.length -1;
+	
+	function changeImage(x){
+		imageNum += x;
+		
+	
+		if(imageNum > imageLength){
+			imageNum = 0;
+		}
+		if(imageNum < 0){
+			imageNum = imageLength;
+		}
+		
+		document.getElementById("slideshow").src = images[imageNum];
+		
+	}
+	
+	function slideShow(){
+		setInterval("changeImage(1)", 3000);
+	}
+
+	
+	function getPrice(){
+		var x;
+		x = localStorage.getItem("price");
+		var check = localStorage.getItem("cart");
+		console.log(check);
+		if(check == null){
+			document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+0+"</p>";
+		}
+		else{document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+x+"</p>";}
+	}
+
+
+
+
+
+</script>
+
+</head>
+
+	<body onload = "getPrice(),slideShow()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+				
+			
+		<div class="contentDiv">
+			<div class="slideshow">
+				<button onclick="changeImage(-1)" class="back"><img src="images/arrow1.png" height="70px" width="70px"></button>
+					<img src="images/join.png" width="700px" height="350px" id="slideshow">
+				<button onclick="changeImage(1)" class="front"><img src="images/arrow1.png" height="70px" width="70px"></button>
+			</div>
+		</div>
+		
+		<div id="contentDetail">
+			<img src="images/rockclimbling.jpg" id="image" width="300px" height="200px">
+				<div id="information">
+					<h1>Rock Climbing activities</h1>
+					<p>Required strength and a strong positive mindset to go through. 
+					<br>It is an artificial rock walls where the task you are giving is to climb up as high as possible.
+					<br> The feeling of reaching the highest point is what you will achieved.
+					<br><b>Join us now !</b></p><button><a href="WeiChonglol.html">Click Here</a></button>
+					
+				</div>
+		</div>
+		
+		<div id="contentDetail1">
+			<img src="images/cycling.jpg" id="image1" width="300px" height="200px">
+				<div id="information1">
+					<h1>Cycling Activities</h1><p>Cycle around with a group builds up the endurance within yourself. 
+					<br>You get to enjoy with the cyclist or your friends and the scenery.
+					<br><b>Join us now !</b></p><button><a href="WeiChonglol.html">Click Here</a></button>
+				</div>
+
+		</div>	
+
+		<div id="contentDetail2">
+			<img src="images/frisbee1.jpg" id="image2" width="300px" height="200px">
+				<div id="information2">
+					<h1>Frisbee Activities</h1><p>A game which require teamwork and communication.
+					<br>Per frisbee game can played up to 10 vs 10.
+					<br>Get to commnuication and pass around a disc with your teammates!
+					<br>The exciting moment when you win the game. Not easy!
+					<br><b>Join us now !</b></p><button><a href="WeiChonglol.html">Click Here</a></button>
+				</div>
+		</div>		
+
+		<div id="contentDetail3">
+			<img src="images/swimming1.jpg" id="image3" width="300px" height="200px">
+				<div id="information3">
+					<h1>Swimming Activities</h1><p>There are different water activities organise for participant. 
+					<br>An example is water polo. A team spirit game which require you to know how to swim. 
+					<br>Why not participant to learn how to swim and participant in the activities?
+					<br><b>Join us now !</b></p>
+					<button><a href="WeiChonglol.html">Click Here</a></button>
+				</div>
+		</div>		
+
+		<div id="contentDetail4">
+			<img src="images/archery1.jpg" id="image4" width="300px" height="200px">
+				<div id="information4">
+					<h1>Archery Activities</h1><p>A relaxing yet focusing game.
+					<br>This activity simply required you to take a bow and aim at a board with different colouring.
+					<br>Each colour stands a different point. The challenge is to shoot at the red dot in the middle.
+					<br><b>Join us now !</b></p><button><a href="WeiChonglol.html">Click Here</a></button>
+				</div>
+		</div>		
+		
+			
+			
+			<footer>
+		
+				
+			
+				<ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+			
+			
+		</div>
+			
+	   
+		<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+	    
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	
+</html>	
+	
+	

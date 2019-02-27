@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheetnew4.css">
+
+<style>
+
+	
+</style>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+
+<script>
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+	function areYouSure(){
+	
+		if(confirm("Are you sure you want to go back? All your data will reset")){
+			window.location.href = "Shopping summary.html";
+		}
+		
+	}	
+	
+	function inputEmpty(){
+		
+		if( document.getElementById("address").value == "" || document.getElementById("expiryDate").value == "" || 	document.getElementById("ccv").value == "" || 
+		document.getElementById("postalCode").value == "" || document.getElementById("cardNumber").value == ""){
+			alert("Please enter your card details");
+		}
+		else{
+		window.location.href = "Shipping Info.html";
+		}
+	}
+	
+</script>
+
+</head>
+
+	<body>
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1265" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+			<div class="header">
+				<button onclick="areYouSure()" class="back"><img src="images/button.png" height="70px" width="70px"></button>
+				<h1>Payment Info</h1>
+				<button onclick="inputEmpty()" class="front"><img src="images/button.png" height="70px" width="70px"></button>
+			</div>
+			<hr>
+			
+			<p>Step 1 of 2</p>
+			
+			<div class="cardDetail">
+				<form id="form">
+			
+				<label for="shippingAddress" class="address">Name :</label>
+				<input type="text" name="address" id="address" />
+		
+				<input type="date" name="expiryDate" id="expiryDate" placeholder="MM/YY" />
+				
+				<input type="text" name="ccv" id="ccv" placeholder="xxx" />
+				
+				<input type="text" name="postalCode" id="postalCode" placeholder="Postal Code" />
+
+				<label for="cardNumber" class="cardNumber">Card Number : </label>
+				<input type="text" name="cardNumber" id="cardNumber" placeholder="e.g. 1234 xxxx xxxx xxxx" />
+				
+				</form>
+			</div>
+			
+		</div>
+			
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	
+</html>	
+	
+	

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<title>ActiveNYP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/baofengstylesheet.css">
+<link rel="stylesheet" type="text/css" href="css/bfcss.css">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<style>
+.aboutUsPadding{
+padding:32px 100px
+}
+
+html,body,h1,h2,h3,h4,h5 {font-family: "Lato", sans-serif}
+.mySlides {display:none}
+.w3-left, .w3-right, .w3-tag {cursor:pointer}
+.w3-tag {height:15px;width:15px;padding:0;margin-top:6px}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: grey;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: black}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+	z-index:500;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.socialimg{
+width:30px;
+height:30px;
+}
+
+.mainimg{
+width:500px;
+height:600px;
+}
+
+</style>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+
+	function getPrice(){
+		var x;
+		x = localStorage.getItem("price");
+		var check = localStorage.getItem("cart");
+		console.log(check);
+		if(check == null){
+			document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+0+"</p>";
+		}
+		else{document.getElementsByClassName("pricing")[0].innerHTML = "<p>SGD$"+x+"</p>";}
+	}
+</script>
+<script src ="javascript/database.js"></script>
+<body>
+
+<body onload="getPrice()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>
+<!-- Content -->
+<div class="w3-content w3-container" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
+  <div class="w3-section">
+   
+    <p></p>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="w3-display-container mySlides">
+    <img class="mainimg" src="images/activeimage3.jpg" style="width:100%">
+    <div class="w3-display-topleft w3-text-white w3-container w3-padding-32 w3-hide-small">
+      <span class="w3-white w3-padding-large w3-animate-bottom">Be part of something great!</span>
+    </div>
+  </div>
+  <div class="w3-display-container mySlides">
+    <img class="mainimg"  src="images/activeimage1.jpg" style="width:100%">
+    <div class="w3-display-middle w3-text-white w3-container w3-padding-32 w3-hide-small">
+      <span class="w3-white w3-padding-large w3-animate-bottom">Be active now!</span>
+    </div>
+  </div>
+  <div class="w3-display-container mySlides">
+    <img class="mainimg" src="images/activeimage2.png" style="width:100%">
+    <div class="w3-display-topright w3-text-white w3-container w3-padding-32 w3-hide-small">
+      <span class="w3-white w3-padding-large w3-animate-bottom">Fulfil what you want in POLY!</span>
+    </div>
+  </div>
+
+  <!-- Slideshow next/previous buttons -->
+  <div class="w3-container w3-dark-grey w3-padding-8">
+    <div class="w3-left w3-hover-text-teal w3-large" onclick="plusDivs(-1)"><</div>
+    <div class="w3-right w3-hover-text-teal w3-large" onclick="plusDivs(1)">></div>
+
+    <div class="w3-center">
+      <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+      <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+      <span class="w3-tag demodots w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="w3-row">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16" ><font color ="white">What We Have</font></span>
+    </div>
+    <div class="w3-col l3 m6 w3-light-grey w3-padding-large">
+      <h3>Activities</h3>
+      <p>In the Activities section, you can sign up or even host your own plan events for the NYP students who are interested.</p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-grey w3-padding-large">
+      <h3>Shop</h3>
+      <p>We also sell motivitional book as well as customizable shirt for people who are interested at the shop section.</p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-dark-grey w3-padding-large">
+      <h3>Workshop</h3>
+      <p>We also host workshop for student who are interested in improving their leadership or responsibilites skill.</p>
+    </div>
+
+    <div class="w3-col l3 m6 w3-black w3-padding-large">
+      <h3>Forum</h3>
+      <p>We also have a forum hosted for student to discuss between each other on the the events they are hosting</p>
+    </div>
+  </div>
+
+  
+
+  <!-- Grid -->
+  <div class="w3-row-padding" style="margin:0 -16px">
+    <div class="w3-center w3-padding-64">
+      <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16"><font color ="white">About Us</font></span>
+    </div>
+
+	<div class="w3-dark-grey aboutUsPadding">
+      <p>We created this website for POLY student to be able to have a fulfiling life at poly. Through the activites section, students are able to host their own events or join other students planned events. This allowed students to make new friends as well as improve their leadership skills. The workshop section allow student to sign up for workshop to improve their leadership skills as well as responsibility skills. We also have a forum for the students to discuss about upcoming events and workshop. Lastly we have a shop section for student to buy motivitional book and customizable shirt.</p>
+    </div>
+  </div>
+   
+
+  <!-- Contact -->
+  <div class="w3-center w3-padding-64">
+    <span class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16"><font color ="white">Contact Us</font></span>
+  </div>
+
+  <form id ="contactUs">
+    <div class="w3-group">
+      <label>Name</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text">
+    </div>
+    <div class="w3-group">
+      <label>Email</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text">
+    </div>
+    <div class="w3-group">
+      <label>Subject</label>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;">
+    </div>
+    <button type="button" class="w3-btn w3-btn-block w3-padding-12">Send</button>
+  </form>
+
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+  <h4>Be social with Us!</h4>
+  <div>
+		<a class="facebook1"href="https://www.facebook.com/profile.php?id=100012571159431&sk=about&section=work"><img class="socialimg" border="0" src="images/facebook.png" width="50"height="50">
+		 <a class="twitter-timeline"  href="https://twitter.com/hashtag/activenyp" data-widget-id="749815836215390208"><img class="socialimg" border="0" src="images/twitter.png" width="50"height="50"></a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          
+			<a href="https://twitter.com/active_nyp" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @active_nyp</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		</div>
+</footer>
+
+<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+
+<script>
+// Slideshow script
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demodots");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex> slides.length) {slideIndex = 1}
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" w3-white", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " w3-white";
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+
+</script>
+
+</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>
+</body>
+</html>

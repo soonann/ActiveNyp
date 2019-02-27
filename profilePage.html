@@ -1,0 +1,772 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+
+<style>
+
+
+.profileTable{
+width:860px;
+height:661px;
+margin:0 auto;
+}
+
+.contentDiv{
+
+}
+
+.profileTable tr td{
+
+color:white;
+padding:20px;
+padding-bottom:0;
+}
+
+.profileTable tr:nth-child(odd){
+background-color:rgba(0,0,0,0.5);
+}
+
+.profileTable tr:nth-child(even){
+background-color:rgba(0,0,0,0.9);
+}
+
+.settings{
+	width:50px;
+	height:50px;
+	display:none;
+	
+}
+
+#passwordDiv{
+	float:left;
+	margin-bottom:10px;
+	display:none;
+}
+#passwordDiv label{
+	
+	float:right;
+	clear:right;
+}
+.settings img{
+	
+	width:30px;
+	height:30px;
+	margin-bottom:15px;
+	cursor:pointer;
+	
+	
+}
+
+#profilename{
+
+
+}
+
+.profilePicture{
+	height:300px;
+	margin:0 auto;
+	
+	text-align:center;
+	
+	
+}
+	
+
+#passwordRow{
+display:none;
+}	
+	
+	
+#profilepicture{
+
+width:200px;
+height:200px;
+
+}	
+
+.labels{
+	width:200px;
+	height:70px;
+}
+
+.bio{
+	height:150px;
+	
+	
+}
+
+#profilebio{
+
+	width:600px;
+	height:250px;
+	margin:0 auto;
+	background-color:transparent;
+	color:white;
+	border:none;
+	margin:0 auto;
+	font-size:15px;
+
+
+}
+
+#profilename,#profileemail,#profileschool{
+	
+	width:500px;
+	height:30px;
+	background-color:transparent;
+	color:white;
+	border:none;
+	margin:0 auto;
+	font-size:15px;
+	
+}
+
+
+
+.profiledisplay{
+
+	display:inline-block;
+	margin:0 auto;
+	text-align:center;
+	
+
+
+}
+
+
+#uploadfile{
+
+	display:none;
+	margin:0 auto;
+	text-align:center;
+	width:200px;
+	
+	
+
+}
+
+#saveButton{
+
+	
+	margin:0 auto;
+	padding:0;
+	width:100px;
+	text-align:center;
+	position:relative;
+	left:350px;
+	bottom:10px;
+	
+	
+}
+
+.save{
+
+	display:none;
+}
+
+.label{
+display:block;
+}
+
+
+#schoolRow{
+
+	background-color:rgba(0,0,0,0.9)
+}
+
+#changeBackground{
+display:none;
+
+}
+
+
+</style>
+
+
+<script src="javascript/database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+  var storageRef = firebase.storage().ref();
+  
+  function profileDisplay(){
+  
+	
+	var profile = location.search;
+	
+	var profileValues;
+	var profileKey;
+	profile = profile.substring(1,profile.length);
+	var settings = document.getElementsByClassName("settings");
+	if(loggedIn == profile ){
+	document.getElementById("passwordRow").style.display = "table-row";
+	document.getElementById("uploadfile").style.display = "block";
+	document.getElementById("profilebio").style.border = "solid 1px white";
+	document.getElementById("schoolRow").style.backgroundColor = "rgba(0,0,0,0.7)";
+	document.getElementById("changeBackground").style.display="table-row"
+	for(var i = 0; i < settings.length;i++ ){
+		settings[i].style.display= "table-cell";
+	}
+	
+	}
+	rootRef.child("/info/"+profile).once("value",function(snapshot){
+	
+	  profileValues = snapshot.val();
+	  profileKey = snapshot.key;
+	
+	}).then(function(){
+	
+	
+			document.getElementById("profileuser").innerHTML = profileKey;
+			document.getElementById("profilename").value = profileValues.name;
+			document.getElementById("profileemail").value = profileValues.email;
+			document.getElementById("profileschool").value = profileValues.school;
+			document.getElementById("profilepicture").src = profileValues.profilepicture;
+			document.getElementById("profilebio").value = profileValues.bio;
+			
+			
+
+	
+	
+	})
+  
+  
+  
+  }
+  
+  
+  function savePassword(){
+
+  var currentpassword;
+
+  
+	if(document.getElementById("passwordDiv").style.display == "block"){
+		//pw check 
+		var newpassword = document.getElementById("newpw").value;
+		rootRef.child("info/"+loggedIn+"/password").once("value",function(snapshot){
+		currentpassword = snapshot.val();
+		
+		}).then(
+		
+		function(){
+		
+		if(document.getElementById("profilepassword").value == "" || document.getElementById("newpw").value == ""){
+		
+			alert("Please enter your password !");
+		}
+		
+		else if(document.getElementById("profilepassword").value != currentpassword){
+			alert("Wrong password !");
+			
+		}
+			else if(document.getElementById("newpw").value != document.getElementById("confirmnewpw").value){
+			alert("Passwords do not match ! ");
+			
+			}
+		
+				else{
+				
+					rootRef.child("info/"+loggedIn+"/").update({password:newpassword});
+					alert("Password successfully changed");
+					document.getElementById("profilepassword").value = null;
+					document.getElementById("confirmnewpw").value = null;
+					document.getElementById("newpw").value = null;
+				}
+		}
+		
+		
+		
+		);
+		
+	}
+  
+ 
+  }
+  
+  
+ function changeDetails(){
+ 
+	var validate = false;
+	
+	
+	var newschool = document.getElementById("profileschool").value ;
+	var newbio = document.getElementById("profilebio").value;
+	var newname = document.getElementById("profilename").value;
+	var newemail = document.getElementById("profileemail").value;
+
+	
+	var find = newemail.search("@");
+	var find2 = newemail.search(".com");
+
+	if(document.getElementById("profileemail").hasAttribute("disabled") == false )
+	{
+		//email check
+		if(find <0 || find2 < 0 ){
+		alert("Please enter a valid email address");
+		}
+		else{
+			validate = true;
+		}
+	}
+	
+	
+	
+	
+	
+	if(validate){
+		
+		rootRef.child("info/"+loggedIn+"/").update({email:newemail});
+		
+	}
+	
+	if(document.getElementById("profilename").hasAttribute("disabled") == false){
+		rootRef.child("info/"+loggedIn+"/").update({name:newname,email:newemail,school:newschool,bio:newbio});
+	}
+	
+	if(document.getElementById("profileschool").hasAttribute("disabled") == false){
+	rootRef.child("info/"+loggedIn+"/").update({school:newschool});
+	}
+
+	if(document.getElementById("profilebio").hasAttribute("disabled") == false){
+	rootRef.child("info/"+loggedIn+"/").update({bio:newbio});
+	}
+	
+	
+	
+	var file = document.getElementById("uploadfile").files[0];
+	if(file != null){
+	//upload picture 
+	console.log(file);
+	var uploadTask = storageRef.child('images/'+file.name).put(file);
+	var downloadURL;
+	uploadTask.on('state_changed', function(snapshot){
+	downloadURL = uploadTask.snapshot.downloadURL;
+	console.log(downloadURL);
+  
+			rootRef.child("info/"+loggedIn+"/").update({profilepicture:downloadURL});
+			document.getElementById("profilepicture").src = downloadURL;
+		})
+		
+		
+			
+		
+		
+		
+		
+		
+	}
+	
+	var backgroundFile = document.getElementById("profilebackground").files[0];
+	
+	if(backgroundFile != null ){
+	
+		var uploadTask = storageRef.child('images/'+backgroundFile.name).put(backgroundFile);
+		var downloadURL;
+		uploadTask.on('state_changed', function(snapshot){
+		downloadURL = uploadTask.snapshot.downloadURL;
+  
+			rootRef.child("info/"+loggedIn+"/").update({profilebackground:downloadURL});
+			document.body.style.backgroundImage = "url(" + downloadURL +")";
+		})
+		
+	
+	
+	
+	}
+		alert("Changes have been saved");
+	
+	
+	
+ 
+ 
+ } 
+  
+  
+function edit(contentId){
+	
+	document.getElementById(contentId).removeAttribute("disabled");
+	document.getElementById(contentId).focus();
+
+}
+  
+function passwordChange(){
+document.getElementsByClassName("write")[3].style.display = "none";
+document.getElementById("passwordDiv").style.display = "block";
+document.getElementsByClassName("save")[0].style.display = "block";
+}  
+  
+  
+function updatePicture(event){
+
+    var pic = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      var dataURL = reader.result;
+      document.getElementById('profilepicture').src = dataURL;
+    };
+	
+    reader.readAsDataURL(pic.files[0]);
+    
+}
+
+function updateBackground(event){
+
+	 var pic = event.target;
+
+    var reader = new FileReader();
+    reader.onload = function(){
+      var dataURL = reader.result;
+      document.body.style.backgroundImage = "url("+dataURL+")";
+    };
+	
+    reader.readAsDataURL(pic.files[0]);
+    
+	
+
+}  
+  
+
+</script>
+
+</head>
+
+	<body onload = "getPrice()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a> </li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+				
+			
+			<div class="contentDiv">
+		
+			
+				<table class="profileTable">
+				
+				
+					
+			
+					<tr>
+						<td class="profilePicture" >  <div class="profiledisplay">         <img src = "" border = "1" id="profilepicture">  <h2 id="profileuser"></h2>
+						<input type="file" id="uploadfile" onchange= "updatePicture(event)" ></div>   </td>
+						<td><label class="label">Bio:</label> <textarea id="profilebio" disabled> </textarea>  </td>      
+						<td  class="settings">  <img onclick = "edit('profilebio')" class="write" src="images/write.png">  </td> 
+					</tr>
+
+					<tr>
+						<td class="labels"> Name:  </td>  
+						<td> 	<input type="text" id="profilename" disabled ></td>	
+						<td class="settings">	<img class= "write"  onclick = "edit('profilename')"  src="images/write.png"> 	</td>
+						
+					</tr>
+				
+					<tr>
+						<td class="labels">	Email address: 	  </td> 
+						<td> <input type = "email" id="profileemail"  disabled >     </td>	
+						<td class="settings">	<img class="write" onclick = "edit('profileemail')"  src="images/write.png"> 	</td>
+					</tr>
+					
+					<tr id="passwordRow" >
+						<td class="labels">	Password: </td>   
+						<td >	
+							<div id="passwordDiv">
+							<label for="profilepassword">Current password:<input type="password" id="profilepassword" > </label>
+							<label for="newpw">New password:<input type="password" id="newpw" > </label>
+							<label for="confirmnewpw">Confirm Password: <input type="password" id="confirmnewpw" >  </label>
+							</div>
+						</td>		
+						
+						<td class="settings"> <img src="images/save.png" class="save" onclick="savePassword()"><img class="write"  onclick = "passwordChange()" src="images/write.png">	</td>
+					</tr>
+					
+					<tr id="schoolRow">
+						<td class="labels">	School :	  </td>  
+						<td><input type="text" id="profileschool" disabled >     </td>		
+						<td class="settings"> <img class="write" onclick="edit('profileschool')" src="images/write.png">		</td>
+						
+					</tr>
+					
+					<tr id="changeBackground">
+						<td class="labels">	Change Background:</td>  
+						<td colspan="2"><input type="file" id="profilebackground" onchange="updateBackground(event)"> </td>		
+						
+					</tr>
+					
+					<tr>
+						<td class="settings" colspan="3"><button onclick = "changeDetails()" id="saveButton">Save</button> </td>
+					</tr>
+				
+			
+			
+				</table>
+
+			
+			
+						<footer>
+					
+							
+						
+							<ul class="footerNav">
+							
+								<li><a href="Feedback.html">Feedback</a></li>
+								<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+								<li class="leftBorder"><a href="">Contact Us</a></li>
+								<li class="leftBorder"><a href="">Q & A</a></li>
+							
+							
+							</ul>
+							
+					
+						</footer>
+			</div>
+		</div>
+		
+		
+		<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+				<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+			
+		
+			
+
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	</html>
+	
+	
+	

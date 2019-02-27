@@ -1,0 +1,390 @@
+
+.contentDiv{
+	height:100vh;
+	width:66.66%;
+    text-align: center;
+		
+}
+
+
+footer{
+	
+	width:100%;
+	clear:both;
+	height:100px;
+	background: rgba(0,0,0,0.9);
+	padding-top:50px;
+	margin-top:45%;	
+}
+
+.logo{
+	
+	width:190px;
+	height:190px;
+	margin-top:5px;
+	margin:0 auto;
+	text-align:center;
+	
+	
+}
+
+
+
+
+.footerNav{
+	
+	vertical-align:middle;
+	margin:0 auto;
+	text-align:center;
+
+	
+		
+}
+
+.footerNav li a{
+	
+	text-decoration:none;
+	color:white;
+	font-size:19px;
+	
+}
+
+.footerNav li{
+	display:inline-block;
+	padding-left:4px;
+}
+
+.footerNav li.leftBorder{
+
+	border-left:1px solid white;
+	
+}
+
+.contentDiv{
+width:100%;
+padding-bottom:10%;
+
+}	
+
+
+.topContent{
+width:83.33%;
+position:relative;
+text-align:center;
+padding:10px;
+font-size:30px;
+left:210px;
+}
+
+.container{
+	
+	
+
+}
+
+
+p{color:black; font-size: 20px;}
+ol li {color:black;}
+span {font-size:20px;}
+.java {clear:both;}
+
+.nav-scroll{overflow:auto; width: 250px; height: 250px;}
+
+div.event{
+position: relative;
+bottom:100px;}
+
+#mySidenav::-webkit-scrollbar {
+    width: 10px;
+	background-color: #333333;
+}
+ 
+ 
+#mySidenav::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+	
+}
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+ul.tab li {float: left;}
+
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+ul.tab li a:hover {background-color: #ddd;}
+
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+	-webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+#alerts {
+    padding: 20px;
+    background-color: #f44336;
+    color: black;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+	display:none;
+	position:fixed;
+	top:400px;
+	left:0px;
+	width:100%;
+	z-index: 10000;
+	
+	
+}
+
+#climbing{
+display:none;
+}
+
+
+#frisbee{
+	
+	display:inline-block;
+	width:70%;
+	
+	
+	
+}
+.sidenav {
+    height: 300px; /* 100% Full-height */
+    /* 0 width - change this with JavaScript */
+    /* Stay in place */
+	display:inline-block;
+     /* Stay on top */
+    background-color: #111; /* Black*/
+    overflow-x: scroll; /* Disable horizontal scroll */
+    padding-top: 50px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+	clear:none;
+	vertical-align:top;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+	
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.closebtn {
+    font-size: 36px !important;
+    margin-left: 100px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+
+
+#climbing{
+	
+	width:70%;
+	
+	
+	
+}
+
+
+
+.closebtn:hover {
+ 
+ color: black;
+}
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+#mySidenav {width:0%;}
+
+.container{
+position: relative;
+left:-13px;
+}
+p{
+	color:white;
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+#result{display:inline-block;}
+.mainPic{display:inline-block;
+cursor:pointer;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+
+
+
+
+.errMsg {
+	color:red;
+	font-size:0.8em;
+	font-style:italic;
+}
+ul#buttons li {
+	display:inline;
+	margin:5px;
+}
+div#popup {
+	border-radius:10%;
+	background-color:rgba(200,200,200,0.3);
+	padding:20px;
+	position:absolute;
+	left:30%;
+	top:20%;
+	width:30%;
+	height:30%;
+	
+}
+
+table#list {
+	display:none;
+	border-collapse:collapse;
+ 
+}
+
+.colorWhite{
+color:white;
+}
+
+table#hostBy th, table#hostBy td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table#hostBy th, table#hostBy td{
+    padding: 5px;
+    text-align: left;
+}
+#hostBy tr:nth-child(even) {
+    background-color: #eee;
+}
+#hostBy tr:nth-child(odd) {
+   background-color:#fff;
+}
+#hostBy th {
+    background-color: black;
+    color: white;}
+	
+p{color: white;}
+#hostBy {
+	position:relative;
+	left:1000px;
+	

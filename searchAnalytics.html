@@ -1,0 +1,716 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+
+<style>
+
+
+.searchGraph{
+
+	width:500px;
+	height:500px;
+	border-left:4px solid white;
+	border-bottom:4px solid white;
+	z-index:-1;
+	padding-top:50px;
+
+}
+
+.barLabel{
+display:inline-block;
+
+
+color:white;
+position:relative;
+left:-100px
+
+}
+
+#bar1,#bar7{
+display:inline-block;
+width:0px;
+height:30px;
+background-color:grey;
+
+
+}
+
+
+#bar2,#bar3,#bar4,#bar5,#bar6,#bar8,#bar9,#bar10,#bar11,#bar12{
+
+width:0px;
+height:30px;
+margin-top:50px;
+background-color:grey;
+}
+
+
+.marking{
+
+width:2px;
+height:15px;
+background-color:white;
+margin-left:50px;
+display:inline-block;
+
+}
+
+.bottomLabel{
+width:600px;
+height:30px;
+position:relative;
+left:-30px;
+padding-top:20px;
+
+}
+
+.graphrange{
+
+width:50px;
+margin-left:2px;
+
+color:white;
+display:inline-block;
+text-align:center;
+}
+
+#graph1,#graph2{
+width:800px;
+height:600px;
+background-color:rgba(0,0,0,0.9);
+padding-left:170px;
+padding-top:50px;
+margin:0 auto;
+
+
+}
+
+#graph2{
+	display:none;
+	height:650px;
+}
+
+
+#navigationGraph{
+	
+	width:66.66%;
+	background-color:rgba(0,0,0,0.5);
+	margin:0 auto;
+	height:800px;
+	
+}
+
+#navigationUl{
+
+height:100px;
+width:100%;
+z-index:1;
+margin:0 auto;
+margin-bottom:20px;
+margin-left:6px;
+}
+
+
+#navigationUl li{
+background-color:black;
+color:white;
+display:inline-block;
+width:49%;
+text-align:center;
+font-size:20px;
+padding-top:35px;
+height:100px;
+cursor:pointer;
+z-index:3;
+}
+
+#navigationUl li:hover{
+
+	background-color:rgba(0,0,0,0.5);
+}
+#navigationUl li:hover #navigationUl{
+	background-color:rgba(0,0,0,0.5);
+}
+#dateStatistics{
+
+position:relative;
+left:-150px;
+top:-40px;
+}
+
+
+
+</style>
+
+
+<script src="javascript/database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+  var storageRef = firebase.storage().ref();
+  
+  function loadGraph(){
+	var k = 0;
+	var keyArray = [];
+	var childArray = [];
+	var sortedKey =[];
+	var sortedChild = [];
+	
+		rootRef.child("/search/").once("value",function(snapshot){
+		
+			 snapshot.forEach(function(childSnap){
+				var total = 0;
+				keyArray[k] = childSnap.key
+				
+				childSnap.forEach(function(childchildSnap){
+				
+					var current = childchildSnap.val()
+					var newcurrent = current.count
+			
+					total = total + parseInt(current.count)
+					childArray[k] = total
+					
+				
+				
+				})
+				
+				k++
+		
+			 })
+		
+		
+		}).then(function(){
+			var max;
+			var indexFinal;
+			for(var i = 0 ; i < keyArray.length ; i++){
+			max=0;
+			indexFinal = 0 ;
+				for(var j = 0; j<keyArray.length; j++){
+				  
+				 
+					if(childArray[j]>max){
+						max = childArray[j];
+						
+						sortedKey[i] = keyArray[j];
+						sortedChild[i] = childArray[j];
+						indexFinal = j;
+				
+					}
+				
+				
+				}
+				childArray[indexFinal] = 0;
+				
+			}
+			
+				
+				
+				
+				
+			for(var l = 0 ; l < 5 ; l++){
+				
+				document.getElementsByClassName("barLabel")[l].innerHTML = sortedKey[l] +" " +"("+ sortedChild[l]+")" ;
+				document.getElementById("bar"+(l+1)).style.width = (sortedChild[l] * 5)+"px"
+				
+			
+			}
+			
+		
+		
+		
+		}
+		
+		
+			
+		
+		
+		
+		)
+  
+  
+  
+  
+  
+  
+  }
+
+ function changeGraph(){
+	var k = 0;
+	var keyArray = [];
+	var childArray = [];
+	var sortedKey =[];
+	var sortedChild = [];
+	var unformatteddate = document.getElementById("dateStatistics").value;
+	var date = unformatteddate.substring(unformatteddate.length-2,unformatteddate.length)+ "-"+unformatteddate.substring(5,7)+ "-"+
+	unformatteddate.substring(0,4);
+	
+	
+		rootRef.child("/search/").once("value",function(snapshot){
+		
+			 snapshot.forEach(function(childSnap){
+				
+				keyArray[k] = childSnap.key
+				var childobj = childSnap.val();
+			
+				var num = childobj[date];
+				if (num == undefined){
+				num = 0 ;
+				}
+				else{num = num["count"]}
+				
+				
+				childArray[k] = num;
+					
+					k++
+		
+			 })
+		
+		
+		}).then(function(){
+			var max;
+			var indexFinal;
+			for(var i = 0 ; i < keyArray.length ; i++){
+			max=0;
+			indexFinal = 0 ;
+				for(var j = 0; j<keyArray.length; j++){
+				  
+				 
+					if(childArray[j]>max){
+						max = childArray[j];
+						
+						sortedKey[i] = keyArray[j];
+						sortedChild[i] = childArray[j];
+						indexFinal = j;
+				
+					}
+				
+				
+				}
+				childArray[indexFinal] = 0;
+				
+			}
+			
+				
+				
+				
+				
+			for(var l = 0 ; l < 5 ; l++){
+				if(sortedKey[l] != undefined){
+				document.getElementsByClassName("barLabel")[l+6].innerHTML = sortedKey[l] +" " +"("+ sortedChild[l]+")" ;
+				document.getElementById("bar"+(l+7)).style.width = (sortedChild[l] * 5)+"px";
+				}else{
+				document.getElementsByClassName("barLabel")[l+6].innerHTML = "";
+				document.getElementById("bar"+(l+7)).style.width = "0px";
+				}
+			}
+
+		})
+
+  
+  }
+function timeNowSet(){
+
+	var now = new Date();
+    var dd = now.getDate();
+    var mm = now.getMonth(); 
+    var yyyy = now.getFullYear();
+	mm=mm+1;
+	var date;
+    if(dd<10){
+		dd='0'+dd
+	} 
+	if(mm<10){
+		mm='0'+mm
+	} 
+	
+		date = yyyy+"-"+mm+"-"+dd;
+		document.getElementById("dateStatistics").max = date;
+		document.getElementById("dateStatistics").value = date;
+		
+}
+	
+ 
+ function searchAppear(){
+ document.getElementById("graph1").style.display = "block" ;
+ document.getElementById("graph2").style.display = "none";
+ 
+ 
+ 
+ }
+ function DateAppear(){
+ document.getElementById("graph1").style.display = "none" ;
+ document.getElementById("graph2").style.display = "block" ;
+
+ } 
+
+</script>
+
+</head>
+
+	<body onload = "getPrice(),timeNowSet()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"><a href="Shopping summary.html"><div class="cartIcon"></div></a></li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+				
+			
+			<div class="contentDiv">
+		
+			
+			<div id="navigationGraph">
+			<ul id="navigationUl">
+				<li id = "searchStats" onclick="searchAppear()">Search Statistics</li>
+				<li id="dateStats" onclick="DateAppear()">Date Statistics</li>
+				
+			</ul>
+					
+				<div id="graph1">
+
+					<div class="searchGraph">
+
+						<div id="bar1"><div class="barLabel"></div> </div>
+						<div id="bar2"><div class="barLabel"></div> </div>
+						<div id="bar3"><div class="barLabel"></div> </div>
+						<div id="bar4"><div class="barLabel"></div> </div>
+						<div id="bar5"><div class="barLabel"></div> </div>
+						<div id="bar6"><div class="barLabel"></div> </div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+
+
+					</div>
+
+					<div class="bottomLabel">
+					
+						<div class="graphrange">0</div>
+						<div class="graphrange">10</div>
+						<div class="graphrange">20</div>
+						<div class="graphrange">30</div>
+						<div class="graphrange">40</div>
+						<div class="graphrange">50</div>
+						<div class="graphrange">60</div>
+						<div class="graphrange">70</div>
+						<div class="graphrange">80</div>
+
+					</div>
+
+				</div>
+
+			
+				<div id="graph2">
+					<input type="date" id="dateStatistics" onchange="changeGraph()"/>
+					<div class="searchGraph">
+					
+						<div id="bar7"><div class="barLabel"></div> </div>
+						<div id="bar8"><div class="barLabel"></div> </div>
+						<div id="bar9"><div class="barLabel"></div> </div>
+						<div id="bar10"><div class="barLabel"></div> </div>
+						<div id="bar11"><div class="barLabel"></div> </div>
+						<div id="bar12"><div class="barLabel"></div> </div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+						<div class="marking"></div>
+
+
+					</div>
+
+					<div class="bottomLabel">
+					
+						<div class="graphrange">0</div>
+						<div class="graphrange">10</div>
+						<div class="graphrange">20</div>
+						<div class="graphrange">30</div>
+						<div class="graphrange">40</div>
+						<div class="graphrange">50</div>
+						<div class="graphrange">60</div>
+						<div class="graphrange">70</div>
+						<div class="graphrange">80</div>
+
+					</div>
+
+				</div>
+
+			
+			
+				
+			</div>
+			
+			
+			
+			<footer>
+		
+				
+			
+				<ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+			
+		</div>
+		
+		
+		<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+			
+		
+			
+	</div>
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	</html>
+	

@@ -1,0 +1,597 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+
+<style>
+.colorWhite{
+color:white;
+}
+
+
+.forumTable{
+width:66.66%;
+margin:0 auto;
+}
+
+.contentDiv{
+
+}
+
+.forumTable tr td{
+height:100px;
+color:white;
+padding:20px;
+padding-bottom:0;
+}
+
+.forumTable tr:nth-child(odd){
+background-color:rgba(0,0,0,0.5);
+}
+
+.forumTable tr:nth-child(even){
+background-color:rgba(0,0,0,0.9);
+}
+
+.tableTitle{
+height:50px;
+font-size:30px;
+
+}
+
+.tableTitle:hover{
+border:2px solid white;
+}
+
+.threadTitle{
+font-size:20px;
+}
+
+
+.author,.date{
+list-style-type:none;
+}	
+
+.gap{
+height:50px;
+}
+
+.likes{
+font-size:20px
+}
+
+.contentCell ul{
+display:inline-block;
+}
+
+.vote{
+padding:10px
+}
+
+.vote li{
+margin:15px;
+list-style-type:none;}
+
+.vote li:hover{
+cursor:pointer;
+}
+
+.postInfo{
+width:15%;
+margin:0 auto;
+text-align:center;
+}
+
+a{
+color:white;
+
+}
+	
+.searchBar{
+float:right;
+font-size:15px;
+margin:0 auto;
+text-align:right;
+clear:none;
+display:inline-block;
+padding-top:15px;
+
+}	
+
+.activitiesHeader{
+display:inline-block;
+width:300px;
+float:left;
+text-align:left;
+}
+
+.searchBar img{
+
+cursor:pointer;
+
+}
+
+	
+</style>
+
+
+<script src="javascript/database.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script>
+
+ // Initialize Firebase
+
+  var config = {
+    apiKey: "AIzaSyBuPvVOnS9wFm915mRQqhl6eVUxdk3gPAo",
+    authDomain: "project-bdf04.firebaseapp.com",
+    databaseURL: "https://project-bdf04.firebaseio.com",
+    storageBucket: "project-bdf04.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
+
+  function passingData(){
+  var searched = document.getElementById("findData").value;
+	location.href = "results.html?"+searched;
+  
+  
+  }
+  
+  
+
+</script>
+
+</head>
+
+	<body onload = "getPrice()" onscroll="navbar()">
+	
+	<TABLE WIDTH="100%" HEIGHT="100%">
+	<TR>
+	<TD ALIGN="CENTER">
+    <TABLE WIDTH="1295" HEIGHT="500">
+    <TR>
+    <TD WIDTH="499px">
+		
+		<div class="mainDiv">
+		
+			<header>
+			
+				<a href="index.html" class="logo" >
+					
+					<img src="images/logo3.png" height="190px" width="190px" >
+				</a>
+				
+				
+			
+			</header>	
+			
+			<div id="nav" class="navbarDiv">	
+				
+				<ul class="navbarList">
+				
+					<li class="mainNav"><a href="WeiChonglol.html">Activities</a></li>
+					<li class="mainNav"><a href="gallery.html">Gallery</a></li>
+					<li class="mainNav"><a href="aboutWorkshop.html">Workshops</a></li>
+					<li class="mainNav"><a href="activenypshirt.html">Shop</a></li>
+					<li class="mainNav"><a href="forumMain.html">Forum</a></li>
+					
+				
+				</ul>
+				
+				
+				<div class="signIn" onclick="popOutLogin()">
+				
+					Sign In
+				
+				</div>
+				
+				
+				<ul class="profileNavbar">
+				
+					<li class="mainProfile" onclick="dropdownProfile()" > <div id="profileIcon"></div> <span id="profileName">Name</span><img   class="profileDownarrow" src="images/downarrow.png" height="10px" width="10px"> </li>
+					<li class="profileNav"> <a href="profilePage.html" id="profileSettings" >Profile Settings</a> </li>
+					<li class="profileNav" onclick= "location.href =  ' ' " >Support</li>
+					<li class="profileNav" onclick="logOut()">Sign Out</a></li>
+				
+				</ul>
+				
+				
+		
+				<ul class="cartPricing">
+					
+					<li class="pricing"></li>
+					
+					<li class="cart"> <a href="Shopping summary.html"><div class="cartIcon"></div></a>       </li>
+					
+				</ul>	
+					
+					
+				
+				
+				
+			</div>	
+				
+				
+			
+			<div class="contentDiv">
+		
+				
+				<table class="forumTable">
+			
+			
+			
+			
+				<tr>	<td colspan="2" class="tableTitle"><a href="forumSub.html"><h3 class="activitiesHeader" >Activities/Events</h3></a><div class="searchBar"><label for="findData"> Search:<input id = "findData" type="search"/></label> <img width="15px" height= "15px" src="images/search.png" onclick="passingData()"> </div></td>	</tr>
+				<tr>	
+						
+						<td class="contentCell">
+						<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+				
+						<ul>
+							<a class="threadTitle" href="forumThread4.html">What is this event about ?</a>
+							<li class="author">Bernard97</li>
+							<li class="date">January 12 2016 10.25 AM</li>
+						</ul>
+						
+						</td>	
+						<td class="postInfo">
+						 <img src="images/thumbsup2.png" width="20px" height="20px"/> &nbsp;&nbsp;&nbsp;<span class="likes">2</span>
+						</td>
+				</tr>
+				<tr>	
+						<td class="contentCell">
+						<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+				
+						<ul>
+							<a class="threadTitle" href="forumThread1.html">Can I still register for the event ?</a>
+							<li class="author">Claire</li>
+							<li class="date">April 21 2016 1.24 AM</li>
+						</ul>
+				
+						</td>
+						
+						<td class="postInfo">
+							<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">3</span>
+						</td>	
+						
+				</tr>
+				
+				<tr class="gap"></tr>
+				
+				<tr>	<td colspan="2" class="tableTitle"><a href="#"><h3>Workshops</h3></a></td>	</tr>
+				
+				<tr>	
+					<td class="contentCell">
+					<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+						<ul>
+						
+							<a class="threadTitle" href="#">What will I learn if I attend these Workshops ?</a>
+							<li class="author">Jack</li>
+							<li class="date">June 1 2016 9.30 PM </li>
+						</ul>
+					</td>	
+					<td class="postInfo">
+						<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">3</span>
+					</td>	
+				</tr>
+				<tr>	
+					<td class="contentCell">
+					<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+						<ul>
+						
+							<a class="threadTitle" href="#">Are the materials sold worth ?</a>
+							<li class="author">Jill</li>
+							<li class="date">June 3 2016 6.31 PM</li>
+						</ul>
+					</td>
+					<td class="postInfo">
+						<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">2</span>
+					</td>
+				</tr>
+				
+				<tr class="gap"></tr>
+				
+				<tr>	<td colspan="2" class="tableTitle"><a href="#"><h3>Chill Area</h3></a>	</tr>
+				<tr>	
+					<td class="contentCell">
+						<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+						
+						<ul>
+					
+							<a class="threadTitle" href="#">The raiders - We're recruiting !</a>
+							<li class="author">Corey</li>
+							<li class="date">May 25 2016 1.25 PM</li>
+						</ul>
+					</td>
+					<td class="postInfo">
+						<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">3</span>
+						
+					</td>
+				</tr>
+				<tr>	
+					<td class="contentCell">
+					<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+						<ul>
+							<a class="threadTitle" href="#">Best places to eat in AMK !</a>
+							<li class="author">Claude</li>
+							<li class="date">June 28 2016 3.32 PM</li>
+						</ul>
+					</td>	
+					<td class="postInfo">
+						<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">3</span>
+					</td>
+				</tr>
+				
+				<tr class="gap"></tr>
+				
+				<tr>	<td colspan="2" class="tableTitle"><a href="#"><h3>Tips/Guides & Support</h3></a> </tr>
+				<tr>	
+					<td class="contentCell">
+					<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+					<ul>
+						
+							<a class="threadTitle" href="#">Tips on being a better leader</a>
+							<li class="author">Jannet</li>
+							<li class="date">June 1 2016 6.11 PM</li>
+						</ul>
+					</td>
+					<td class="postInfo">
+						<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">3</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="contentCell">
+					<ul class="vote">
+						<li><img src="images/uparrow.png" width="15px" height="15px"/></li>
+						<li><img src="images/downarrow.png" width="15px" height="15px"/></li>
+						</ul>
+						<ul>
+						
+							<a class="threadTitle" href="#">How to effectively communicate with your peers.</a>
+							<li class="author">Klaus</li>
+							<li class="date">June 8 2016 1.51 PM</li>
+						</ul>
+					</td>
+					<td class="postInfo">
+						<img src="images/thumbsup2.png" width="20px" height="20px"/>&nbsp;&nbsp;&nbsp; <span class="likes">1</span>
+					</td>
+				</tr>
+				
+			
+			
+			
+			
+			</table>
+		
+			
+			
+			
+			
+				
+				
+			
+			
+			
+			
+				
+			
+			
+			
+			
+			<footer>
+		
+				
+			
+				<ul class="footerNav">
+				
+					<li><a href="Feedback.html">Feedback</a></li>
+					<li class="leftBorder"><a href="new 1000.html">About Us</a></li>
+					<li class="leftBorder"><a href="">Contact Us</a></li>
+					<li class="leftBorder"><a href="">Q & A</a></li>
+				
+				
+				</ul>
+				
+		
+			</footer>
+			
+		</div>
+		
+		
+		<div class="registrationMain" id="registrationMain">
+				
+			<div class="registrationInner">
+				
+				
+				<span class="closeButton" onclick="closepopOut()">X</span>
+			<div class="alert"> </div>
+					<div class="formDiv">
+					
+						<div class="tableDiv1">
+							<table class="formTable1" cellspacing="10px">
+							<form id="registrationForm">
+							<tr>
+								<td colspan="2">
+								<h3>Registration Form</h3>
+								</td>
+							</tr>
+							
+							<tr>
+							
+								<td class="right">
+									<label for="username">Username: </label>
+								</td>
+								
+								<td>
+									<input type="text" name="username" id="username" onchange = "checkInUse()" required />
+								</td>
+								
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="password">Password:</label>
+								</td>
+								
+								<td>
+									<input type="password" name="password" id="password" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="confirmpassword">Confirm Password: </label>
+								</td>
+								
+								<td>
+									<input type="password" name="confirmpassword" id="confirmpassword" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="name">Name:</label> 
+								</td>
+								
+								<td>
+									<input type="text" name="name" id="name" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="dob">Date of Birth:</label>
+								</td>
+								
+								<td>
+									<input type="date" name="dob" id="dob" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="email">Email:</label>
+								</td>
+								
+								<td>
+									<input type="email" name="email" id="email" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="phoneno">Phone No:</label>
+								</td>
+								
+								<td>
+									<input type="number" name="phoneno" id="contact" pattern="\d{8}" required />
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="right">
+									<label for="school">School:</label>
+								</td>
+								
+								<td>
+									<input list="schools" id="school" />
+									
+									<datalist id="schools" required>
+										
+										<option value="Nanyang Polytechnic">
+										<option value="Republic Polytechnic">
+										<option value="Ngee Ann Polytechnic">
+										<option value="Temasek Polytechnic">	
+										<option value="Singapore Polytechnic">	
+										
+									</datalist>	
+								</td>
+							</tr>
+							
+							<tr>
+								<td class="submit right" >
+									<input id="register" type="button" onclick="registration()" value="Submit">
+								</td>
+								
+								<td class= "clear">
+									<input id="clear" type="reset" value="Clear" />
+								</td>
+							</tr>
+									</form>
+							</table>
+				
+						</div>
+						
+						<div class="tableDiv2">
+							
+						
+							<table class="formTable2" cellspacing="10px">
+							<form id="loginForm">
+							<tr><td colspan="2" ><h3>Login</h3></td></tr>
+							<tr><td class="right"><label for="Username">Username:</label></td>
+							<td><input type="text" id="Username" name="Username" /></td></tr>
+							<tr><td class="right"><label for="Password">Password:</label></td>
+							<td><input type="Password" name="Password" id="Password" /></td>
+							</tr>	
+							<tr><td></td><td><label id="forgetpw" onclick="changeToReset()">Forgot your passsword ?</label><input type="button" id="login" value="Login" onclick="checkLogin()"/> </td></tr>
+							</form>
+							</table>
+							
+							
+							<table class="resetpwTable" cellspacing="10px">
+								<tr><td colspan="2"><h3>Reset Password</h3><span id="popoutformclosebutton" onclick="changeToLogin()"> X </span></td></tr>
+								<tr><td class="right"><label for="resetusername" >Username:</label></td>  <td><input type="text" id="resetusername"/></td></tr>
+								<tr><td class="right"><label for="resetemail">Email:</label></td>	<td><input type="email" id="resetemail"/></td></tr>
+								<tr><td class="right"><label for="resetdob">Date of Birth:</label></td>	<td><input type="date" id="resetdob"/></td></tr>
+								<tr><td class="right"><label for="resetnewpw">New Password:</label></td>	<td><input type="password" id="resetnewpw"/></td></tr>
+								<tr><td class="right"><label for="resetconfirmpw">Confirm Password</label></td>	<td><input type="password" id="resetconfirmpw"/></td></tr>
+								<tr><td><td colspan="2"> <input type="button" value="Reset Password" class ="resetPw" onclick="ResetUserPw()"></td></tr>
+							</table>
+							
+						</div>
+					
+					</div>
+			</div>
+		</div>
+		
+		
+			
+	</div>
+	</TD>
+	</TR>
+    </TABLE>
+    </TD>
+	</TR>
+	</TABLE>		
+	
+	
+	
+	</body>
+	</html>
+	
+	
+	

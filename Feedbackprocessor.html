@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+
+	
+
+</style>
+</head>
+<body>	
+	<script>
+
+		function locateBack(){
+			window.location.href = "activenypshirt.html";
+		}
+
+		document.write("<h1>Your Feedback Form has been submitted!</h1><h2>The following data you have entered : </h2>");
+		var formData = location.search;
+
+		formData = formData.substring(1, formData.length);
+		while (formData.indexOf("+") != -1) {
+		formData = formData.replace("+", " ");
+		}
+		formData = unescape(formData);
+		var formArray = formData.split("&");
+		for (var i=0; i < formArray.length; ++i) {
+		document.writeln(formArray[i] + "<br />");
+		}
+	
+	
+	</script>
+
+
+	<button onclick="locateBack()">Click here to go back to the website</button>
+</body>
+</html>
+
